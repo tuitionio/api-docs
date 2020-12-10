@@ -2,6 +2,8 @@
 
 ## Get Employees
 
+`GET https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2`
+
 ### Query Parameters
 
 Parameter | Default | Description
