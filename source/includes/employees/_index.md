@@ -2,15 +2,6 @@
 
 ## Get Employees
 
-`GET https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-page[limit] | 500 | If set to true, the result will also include cats.
-page[offset] | 0 | If set to false, the result will include kittens that have already been adopted.
-
 ```shell
 ## Request Employees
 curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
@@ -39,72 +30,52 @@ curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
         "last-name":"Jefferson",
         "email": "loren@test.com"
       }
-    }],
-    "meta": {
-      "page": {
-        "total": 140
-      },
-      "requester":10800,
-      "copyright":"©2020"
-    }
+    }]
+  },
+  "meta": {
+    "page": {
+      "total": 140
+    },
+    "requester":10800,
+    "copyright":"©2020"
   }
 }
 ```
 
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
+`GET https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2`
 
 ### Query Parameters
 
 Parameter | Default | Description
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+page[limit] | 500 | If set to true, the result will also include cats.
+page[offset] | 0 | If set to false, the result will include kittens that have already been adopted.
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+Remember — additional information is included in the response. See relations and parameters for more info.
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Get a Specific Employee
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl "https://crunchy-api.tio-vdk.io/employees/<ID>" \
+     -H 'x-api-key: meowmeowmeow' \
+     -H 'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data": {
+    "id": "4064",
+    "type":"employees",
+    "attributes": {
+      "first-name": "Anna",
+      "last-name": "Riley",
+      "email": "anna@test.com"
+    }
+  }
 }
 ```
 
@@ -114,44 +85,15 @@ This endpoint retrieves a specific kitten.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://crunchy-api.tio-vdk.io/employees/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID | The ID of the employee to retrieve
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+## Deactivate a Specific Employee
 
 ```json
 {
@@ -160,7 +102,7 @@ let max = api.kittens.delete(2);
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint deactivates a specific employee.
 
 ### HTTP Request
 
