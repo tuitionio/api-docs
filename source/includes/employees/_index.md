@@ -1,51 +1,52 @@
-# Kittens
+# Employees
 
-## Get All Kittens
+## Get Employees
 
-```ruby
-require 'kittn'
+### Query Parameters
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+Parameter | Default | Description
+--------- | ------- | -----------
+page[limit] | 500 | If set to true, the result will also include cats.
+page[offset] | 0 | If set to false, the result will include kittens that have already been adopted.
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+## Request Employees
+curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
+     -H 'x-api-key: meowmeowmeow' \
+     -H 'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  }, {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "data":
+    [{
+      "id":"4064",
+      "type":"employees",
+      "attributes": {
+        "first-name": "Anna",
+        "last-name":"Riley",
+        "email": "anna@test.com"
+      }
+    }, {
+      "id":"4065",
+      "type":"employees",
+      "attributes": {
+        "first-name":"Loren",
+        "last-name":"Jefferson",
+        "email": "loren@test.com"
+      }
+    }],
+    "meta": {
+      "page": {
+        "total": 140
+      },
+      "requester":10800,
+      "copyright":"©2020"
+    }
   }
-]
+}
 ```
 
 This endpoint retrieves all kittens.

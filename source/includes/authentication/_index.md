@@ -2,18 +2,6 @@
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
 ## Login
 curl -X "POST" "http://localhost:3000/login" \
@@ -24,12 +12,6 @@ curl -X "POST" "http://localhost:3000/login" \
     "password": "Test1234!"
   }
 }'
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
