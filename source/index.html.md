@@ -44,9 +44,15 @@ api = kittn.authorize('meowmeowmeow')
 ```
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+## Login
+curl -X "POST" "http://localhost:3000/login" \
+     -H 'Content-Type: application/json' \
+     -d $'{
+  "user": {
+    "email": "cory+super_admin@me.com",
+    "password": "Test1234!"
+  }
+}'
 ```
 
 ```javascript
