@@ -40,8 +40,8 @@ activate :relative_assets
 set :relative_links, true
 
 # Global variables shared across templates
-set :kitten_name, "Fluffums"
-config[:kitten_name]
+set :api_key, "meowmeowmeow"
+config[:api_key]
 
 # Build Configuration
 configure :build do
