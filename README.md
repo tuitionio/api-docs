@@ -1,3 +1,5 @@
+# Api Documentation
+You've most likely arrived at this page looking for the api documentation [here](https://tuitionio.github.io/api-docs).
 <p align="center">
   <img src="https://raw.githubusercontent.com/slatedocs/img/main/logo-slate.png" alt="Slate: API Documentation Generator" width="226">
   <br>

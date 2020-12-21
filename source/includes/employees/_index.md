@@ -6,7 +6,7 @@
 ## Request Employees
 curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
      -H 'x-api-key: meowmeowmeow' \
-     -H 'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...'
+     -H 'tio-auth-token: purrrrrfectt'
 ```
 
 > The above command returns JSON structured like this:
