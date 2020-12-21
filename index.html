@@ -357,17 +357,20 @@ curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">
 }'</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.
+Make sure to replace <code>purrrrrfectt</code> with your authentication token.</p>
 </blockquote>
 
-<p>Tuition.io uses API keys to allow access to the API. You can register a new API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Tuition.io uses API keys to allow access to the API coupled with an authorization token. You can register a new API key at our <a href="http://example.com/developers">developer portal</a>.</p>
 
 <p>Tuition.io expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p><code>x-api-key: meowmeowmeow</code>
+<code>tio-auth-token: purrrrrfectt</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>meowmeowmeow</code> with your API key.
+You must replace <code>purrrrrfectt</code> with your authentication token.
 </aside>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
 curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
