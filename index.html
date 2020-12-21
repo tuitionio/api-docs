@@ -288,7 +288,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -299,9 +299,6 @@
       <img src="images/logo-1e815a84.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -324,6 +321,9 @@
                     <a href="#get-a-specific-employee" class="toc-h2 toc-link" data-title="Get a Specific Employee">Get a Specific Employee</a>
                   </li>
                   <li>
+                    <a href="#update-a-specific-employee" class="toc-h2 toc-link" data-title="Update a Specific Employee">Update a Specific Employee</a>
+                  </li>
+                  <li>
                     <a href="#deactivate-a-specific-employee" class="toc-h2 toc-link" data-title="Deactivate a Specific Employee">Deactivate a Specific Employee</a>
                   </li>
               </ul>
@@ -341,11 +341,7 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>This API is a service that provides access to data relevant to the tuition repayment and other financial benefits provided by Tuition.io.</p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
@@ -361,22 +357,26 @@ curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">
 }'</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.<br>
+Make sure to replace <code>purrrrrfectt</code> with your authentication token.</p>
 </blockquote>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Tuition.io uses API keys to allow access to the API coupled with an authorization token. You can register a new API key at our <a href="http://example.com/developers">developer portal</a>.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Tuition.io expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p><code>x-api-key: meowmeowmeow</code><br>
+<code>tio-auth-token: purrrrrfectt</code></p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+  <br>
+  You must replace <code>meowmeowmeow</code> with your API key.<br>
+  You must replace <code>purrrrrfectt</code> with your authentication token.
 </aside>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
 curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...'</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeowz'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: purrrrrfectt'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -434,31 +434,36 @@ curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=
 <aside class="success">
 Remember — additional information is included in the response. See relations and parameters for more info.
 </aside>
-<h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;"</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...'</span>
+
+<p><h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4064"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"employees"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"first-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Anna"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"last-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Riley"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"anna@test.com"</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4064&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;employees&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Riley&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anna@test.com&quot;</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint retrieves a specific kitten.</p>
+<p>This endpoint retrieves a specific employee.</p></p>
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
 <h3 id='http-request'>HTTP Request</h3>
+
 <p><code>GET https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
+
 <h3 id='url-parameters'>URL Parameters</h3>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -470,15 +475,66 @@ Remember — additional information is included in the response. See relations a
 <td>The ID of the employee to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+
+<p><h2 id='update-a-specific-employee'>Update a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+       &quot;data&quot;: {
+          id: &quot;4064&quot;,
+          &quot;type&quot;: &quot;employees&quot;,
+          &quot;attributes&quot;: {
+            &quot;first-name&quot;: &quot;Anna Changed&quot;
+          }
+       }
+      }&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4064&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;employees&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anna Changed&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Riley&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anna@test.com&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a specific employee.</p></p>
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+<h3 id='http-request'>HTTP Request</h3>
+
+<p><code>PUT https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
+
+<h3 id='url-parameters'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the employee to update</td>
+</tr>
+</tbody></table>
+
+<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;deleted&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:(&quot;</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -489,13 +545,13 @@ Remember — additional information is included in the response. See relations a
 <td>ID</td>
 <td>The ID of the kitten to delete</td>
 </tr>
-</tbody></table>
+</tbody></table></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
-This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+Error objects provide additional information about problems encountered while performing an operation. 
 </aside>
 
-<p>The Kittn API uses the following error codes:</p>
+<p>The Tuition.io API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -513,27 +569,19 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The resource requested is not allowed by current api key.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
+<td>Not Found -- The specified resource could not be found.</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
+<td>Method Not Allowed -- You tried to access a resource with an invalid method.</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
 </tr>
 <tr>
 <td>422</td>
@@ -541,7 +589,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- You&#39;re requesting too many resources! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
@@ -557,9 +605,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
