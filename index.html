@@ -326,6 +326,12 @@
                   <li>
                     <a href="#deactivate-a-specific-employee" class="toc-h2 toc-link" data-title="Deactivate a Specific Employee">Deactivate a Specific Employee</a>
                   </li>
+                  <li>
+                    <a href="#add-update-a-plan-for-an-employee" class="toc-h2 toc-link" data-title="Add / Update a Plan for an Employee">Add / Update a Plan for an Employee</a>
+                  </li>
+                  <li>
+                    <a href="#remove-a-plan-from-an-employee" class="toc-h2 toc-link" data-title="Remove a Plan from an Employee">Remove a Plan from an Employee</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -547,6 +553,14 @@ Remember — additional information is included in the response. See relations a
 <td>The ID of the kitten to delete</td>
 </tr>
 </tbody></table></p>
+
+<p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;/relationships/plan&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
+</code></pre></div><h3 id='todo-fill-in-information'>TODO - Fill in information</h3><h2 id='remove-a-plan-from-an-employee'>Remove a Plan from an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;/relationships/plan&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
+</code></pre></div><h3 id='todo-fill-in-information-2'>TODO - Fill in information</h3></p>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 Error objects provide additional information about problems encountered while performing an operation. 
