@@ -1,0 +1,60 @@
+## Create Employee
+```shell
+
+curl -X "POST" "<%= config[:base_url] %>/employees" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+     -H 'Content-Type: application/vnd.api+json' \\
+     -d $'{
+        "data": {
+          "type": "employees",
+          "attributes": {
+            "first-name": "Cory",
+            "last-name": "Loken",
+            "payroll-id": "32191"
+          },
+          "relationships": {
+            "company": {
+              "data": {
+                "type": "companies",
+                "id": "<COMPANY_ID>"
+              }
+            }
+          }
+        }
+      }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "id":"3",
+    "type":"employees",
+    "attributes": {
+      "first-name": "Cory",
+      "last-name": "Loken",
+      "email": null,
+      "payroll-id": "32191"
+    }
+  }
+}
+```
+
+This endpoint creates a specific employee.
+
+### HTTP Request
+
+`POST <%= config[:base_url]%>/employees`
+
+### BODY Parameters
+
+Parameter | Description
+--------- | -----------
+COMPANY_ID | The COMPANY_ID of the employee to create
+first-name | The first name of the employee
+last-name | The last name of the employee
+email | The email address where the plan invite is sent
+
+
