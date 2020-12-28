@@ -4,9 +4,9 @@
 
 ```shell
 ## Request Employees
-curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
+curl "<%= config[:base_url]%>employees?page%5Blimit%5D=2" \
      -H 'x-api-key: <%= config[:api_key] %>' \
-     -H 'tio-auth-token: purrrrrfectt'
+     -H 'tio-auth-token: <%= config[:api_token] %>'
 ```
 
 > The above command returns JSON structured like this:
@@ -40,7 +40,7 @@ curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
 }
 ```
 
-`GET https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2`
+`GET <%= config[:base_url] %>/employees?page%5Blimit%5D=2`
 
 ### Query Parameters
 
@@ -54,6 +54,7 @@ Remember — additional information is included in the response. See relations a
 </aside>
 
 <%= partial "includes/employees/request.md" %>
+<%= partial "includes/employees/create.md" %>
 <%= partial "includes/employees/update.md" %>
 <%= partial "includes/employees/deactivate.md" %>
 <%= partial "includes/employees/contributions.md" %>
