@@ -411,9 +411,7 @@ curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=
   </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">140</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"requester"</span><span class="p">:</span><span class="mi">10800</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"copyright"</span><span class="p">:</span><span class="s2">"©2020"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -533,14 +531,14 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </tbody></table>
 
-<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;deleted&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;:(&quot;</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;http://localhost:3210/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: &#39;</span>purrpurrpurr<span class="s1">&#39; \
+     -H &#39;</span>Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8<span class="s1">&#39;
 </span></code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>DELETE https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -550,17 +548,105 @@ Remember — additional information is included in the response. See relations a
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The ID of the employee to deactivate</td>
 </tr>
 </tbody></table></p>
 
-<p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;/relationships/plan&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
-</code></pre></div><h3 id='todo-fill-in-information'>TODO - Fill in information</h3><h2 id='remove-a-plan-from-an-employee'>Remove a Plan from an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;/relationships/plan&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
-</code></pre></div><h3 id='todo-fill-in-information-2'>TODO - Fill in information</h3></p>
+<p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://localhost:3210/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: localAPIKey&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: 123...&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &lt;EMPLOYEE_ID&gt; }
+  ]
+}&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>Returns &quot;204 No Content&quot; on success</p>
+</blockquote></p>
+
+<p>This endpoint attaches a contribution plan to a specific employee.</p>
+
+<h3 id='http-request'>HTTP Request</h3>
+
+<p><code>POST https://crunchy-api.tio-vdk.io/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
+
+<h3 id='url-parameters'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PLAN_ID</td>
+<td>The PLAN_ID to attach to employee</td>
+</tr>
+</tbody></table>
+
+<h3 id='body-parameters'>BODY Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EMPLOYEE_ID</td>
+<td>The EMPLOYEE_ID to receiving the contribution</td>
+</tr>
+</tbody></table>
+
+<p><h2 id='remove-a-plan-from-an-employee'>Remove a Plan from an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;http://localhost:3210/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: localAPIKey&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: 123...&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &quot;3&quot; }
+  ]
+}&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>Returns &quot;204 No Content&quot; on success</p>
+</blockquote></p>
+
+<p>This endpoint removes a contribution plan from a specific employee.</p>
+
+<h3 id='http-request-2'>HTTP Request</h3>
+
+<p><code>DELETE https://crunchy-api.tio-vdk.io/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
+
+<h3 id='url-parameters-2'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PLAN_ID</td>
+<td>The PLAN_ID to attach to employee</td>
+</tr>
+</tbody></table>
+
+<h3 id='body-parameters-2'>BODY Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EMPLOYEE_ID</td>
+<td>The EMPLOYEE_ID to receiving the contribution</td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 Error objects provide additional information about problems encountered while performing an operation. 
