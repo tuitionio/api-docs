@@ -24,8 +24,6 @@ curl "https://crunchy-api.tio-vdk.io/employees/<ID>" \\
 
 This endpoint retrieves a specific employee.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
 ### HTTP Request
 
 `GET https://crunchy-api.tio-vdk.io/employees/<ID>`
