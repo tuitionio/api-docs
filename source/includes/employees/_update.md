@@ -5,13 +5,13 @@ curl -X PUT "https://crunchy-api.tio-vdk.io/employees/<ID>" \\
      -H 'x-api-key: meowmeowmeow' \\
      -H 'tio-auth-token: eyJhbGciOiJIUzUxMiJ9...' \\
      -d $'{
-       "data": {
+        "data": {
           id: "4064",
           "type": "employees",
           "attributes": {
             "first-name": "Anna Changed"
           }
-       }
+        }
       }'
 ```
 
