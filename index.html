@@ -321,6 +321,9 @@
                     <a href="#get-a-specific-employee" class="toc-h2 toc-link" data-title="Get a Specific Employee">Get a Specific Employee</a>
                   </li>
                   <li>
+                    <a href="#create-employee" class="toc-h2 toc-link" data-title="Create Employee">Create Employee</a>
+                  </li>
+                  <li>
                     <a href="#update-a-specific-employee" class="toc-h2 toc-link" data-title="Update a Specific Employee">Update a Specific Employee</a>
                   </li>
                   <li>
@@ -339,7 +342,6 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -368,7 +370,7 @@ curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">
 Make sure to replace <code>purrrrrfectt</code> with your authentication token.</p>
 </blockquote>
 
-<p>Tuition.io uses API keys to allow access to the API coupled with an authorization token. You can register a new API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Tuition.io uses API keys to allow access to the API coupled with an authorization token.</p>
 
 <p>Tuition.io expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
@@ -381,7 +383,7 @@ Make sure to replace <code>purrrrrfectt</code> with your authentication token.</
   You must replace <code>purrrrrfectt</code> with your authentication token.
 </aside>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
-curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
+curl <span class="s2">"https://localhost:3030employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'tio-auth-token: purrrrrfectt'</span>
 </code></pre></div>
@@ -415,7 +417,7 @@ curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><code>GET https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2</code></p>
+<p><code>GET https://localhost:3030/employees?page%5Blimit%5D=2</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -440,9 +442,9 @@ curl <span class="s2">"https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=
 Remember — additional information is included in the response. See relations and parameters for more info.
 </aside>
 
-<p><h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -461,7 +463,7 @@ Remember — additional information is included in the response. See relations a
 </span></code></pre></div>
 <p>This endpoint retrieves a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
+<p><code>GET https://localhost:3030/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -475,12 +477,80 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </tbody></table></p>
 
-<p><h2 id='update-a-specific-employee'>Update a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='create-employee'>Create Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9...&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
         &quot;data&quot;: {
-          id: &quot;4064&quot;,
+          &quot;type&quot;: &quot;employees&quot;,
+          &quot;attributes&quot;: {
+            &quot;first-name&quot;: &quot;Cory&quot;,
+            &quot;last-name&quot;: &quot;Loken&quot;,
+            &quot;payroll-id&quot;: &quot;32191&quot;
+          },
+          &quot;relationships&quot;: {
+            &quot;company&quot;: {
+              &quot;data&quot;: {
+                &quot;type&quot;: &quot;companies&quot;,
+                &quot;id&quot;: &quot;&lt;COMPANY_ID&gt;&quot;
+              }
+            }
+          }
+        }
+      }&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;employees&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cory&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Loken&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;payroll-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;32191&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates a specific employee.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://localhost:3030/employees</code></p>
+<h3 id='body-parameters'>BODY Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>COMPANY_ID</td>
+<td>The COMPANY_ID of the employee to create</td>
+</tr>
+<tr>
+<td>first-name</td>
+<td>The first name of the employee</td>
+</tr>
+<tr>
+<td>last-name</td>
+<td>The last name of the employee</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email address where the plan invite is sent</td>
+</tr>
+</tbody></table></p>
+
+<p><h2 id='update-a-specific-employee'>Update a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+        &quot;data&quot;: {
+          &quot;id&quot;: &quot;4064&quot;,
           &quot;type&quot;: &quot;employees&quot;,
           &quot;attributes&quot;: {
             &quot;first-name&quot;: &quot;Anna Changed&quot;
@@ -505,7 +575,7 @@ Remember — additional information is included in the response. See relations a
 </span></code></pre></div>
 <p>This endpoint updates a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>PUT https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
+<p><code>PUT https://localhost:3030/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -517,16 +587,36 @@ Remember — additional information is included in the response. See relations a
 <td>ID</td>
 <td>The ID of the employee to update</td>
 </tr>
+</tbody></table>
+<h3 id='body-parameters'>BODY Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first-name</td>
+<td>The first name of the employee</td>
+</tr>
+<tr>
+<td>last-name</td>
+<td>The last name of the employee</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email address where the plan invite is sent</td>
+</tr>
 </tbody></table></p>
 
-<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;http://localhost:3210/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: &#39;</span>purrpurrpurr<span class="s1">&#39; \
-     -H &#39;</span>Content-Type: application/json<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8<span class="s1">&#39;
-</span></code></pre></div>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json; charset=utf-8&#39;</span>
+</code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>DELETE https://crunchy-api.tio-vdk.io/employees/&lt;ID&gt;</code></p>
+<p><code>DELETE https://localhost:3030/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -540,15 +630,15 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </tbody></table></p>
 
-<p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://localhost:3210/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: localAPIKey&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: 123...&#39;</span> <span class="se">\</span>
+<p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: [
-    { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &lt;EMPLOYEE_ID&gt; }
-  ]
-}&#39;</span>
+        &quot;data&quot;: [
+          { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &lt;EMPLOYEE_ID&gt; }
+        ]
+      }&#39;</span>
 </code></pre></div>
 <blockquote>
 <p>Returns &quot;204 No Content&quot; on success</p>
@@ -558,7 +648,7 @@ Remember — additional information is included in the response. See relations a
 
 <h3 id='http-request'>HTTP Request</h3>
 
-<p><code>POST https://crunchy-api.tio-vdk.io/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
+<p><code>POST https://localhost:3030/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
 
 <h3 id='url-parameters'>URL Parameters</h3>
 
@@ -588,15 +678,15 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </tbody></table>
 
-<p><h2 id='remove-a-plan-from-an-employee'>Remove a Plan from an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;http://localhost:3210/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
+<p><h2 id='remove-a-plan-from-an-employee'>Remove a Plan from an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: localAPIKey&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: 123...&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: [
-    { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &quot;3&quot; }
-  ]
-}&#39;</span>
+        &quot;data&quot;: [
+          { &quot;type&quot;: &quot;employees&quot;, &quot;id&quot;: &quot;3&quot; }
+        ]
+      }&#39;</span>
 </code></pre></div>
 <blockquote>
 <p>Returns &quot;204 No Content&quot; on success</p>
@@ -606,7 +696,7 @@ Remember — additional information is included in the response. See relations a
 
 <h3 id='http-request-2'>HTTP Request</h3>
 
-<p><code>DELETE https://crunchy-api.tio-vdk.io/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
+<p><code>DELETE https://localhost:3030/employees/&lt;PLAN_ID&gt;/relationships/employees</code></p>
 
 <h3 id='url-parameters-2'>URL Parameters</h3>
 
