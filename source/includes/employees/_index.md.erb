@@ -5,7 +5,7 @@
 ```shell
 ## Request Employees
 curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
-     -H 'x-api-key: <%= config[:api_key] %>z' \
+     -H 'x-api-key: <%= config[:api_key] %>' \
      -H 'tio-auth-token: purrrrrfectt'
 ```
 
@@ -35,9 +35,7 @@ curl "https://crunchy-api.tio-vdk.io/employees?page%5Blimit%5D=2" \
   "meta": {
     "page": {
       "total": 140
-    },
-    "requester":10800,
-    "copyright":"©2020"
+    }
   }
 }
 ```
@@ -58,5 +56,6 @@ Remember — additional information is included in the response. See relations a
 <%= partial "includes/employees/request.md" %>
 <%= partial "includes/employees/update.md" %>
 <%= partial "includes/employees/deactivate.md" %>
+<%= partial "includes/employees/contributions.md" %>
 
 
