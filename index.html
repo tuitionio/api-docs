@@ -488,7 +488,8 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
           &quot;attributes&quot;: {
             &quot;first-name&quot;: &quot;Cory&quot;,
             &quot;last-name&quot;: &quot;Loken&quot;,
-            &quot;payroll-id&quot;: &quot;32191&quot;
+            &quot;payroll-id&quot;: &quot;32191&quot;,
+            &quot;email&quot;: &quot;cory@test.com&quot;
           },
           &quot;relationships&quot;: {
             &quot;company&quot;: {
@@ -511,7 +512,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
     </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cory&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Loken&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cory@test.com&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;payroll-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;32191&quot;</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -542,6 +543,10 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>email</td>
 <td>The email address where the plan invite is sent</td>
+</tr>
+<tr>
+<td>payroll-id</td>
+<td>The company payroll id for the employee</td>
 </tr>
 </tbody></table></p>
 
