@@ -11,7 +11,8 @@ curl -X "POST" "<%= config[:base_url] %>/employees" \\
           "attributes": {
             "first-name": "Cory",
             "last-name": "Loken",
-            "payroll-id": "32191"
+            "payroll-id": "32191",
+            "email": "cory@test.com"
           },
           "relationships": {
             "company": {
@@ -35,7 +36,7 @@ curl -X "POST" "<%= config[:base_url] %>/employees" \\
     "attributes": {
       "first-name": "Cory",
       "last-name": "Loken",
-      "email": null,
+      "email": "cory@test.com",
       "payroll-id": "32191"
     }
   }
@@ -56,5 +57,5 @@ COMPANY_ID | The COMPANY_ID of the employee to create
 first-name | The first name of the employee
 last-name | The last name of the employee
 email | The email address where the plan invite is sent
-
+payroll-id | The company payroll id for the employee
 
