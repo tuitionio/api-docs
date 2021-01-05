@@ -310,6 +310,14 @@
           </li>
           <li>
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#jwt-claims" class="toc-h2 toc-link" data-title="JWT Claims">JWT Claims</a>
+                  </li>
+                  <li>
+                    <a href="#example-request" class="toc-h2 toc-link" data-title="Example Request">Example Request</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#employees" class="toc-h1 toc-link" data-title="Employees">Employees</a>
@@ -352,35 +360,50 @@
 <p>This API is a service that provides access to data relevant to the tuition repayment and other financial benefits provided by Tuition.io.<br>
 The Tuition.io conforms to the JSONAPI 1.0 specification. Please refer to the specification for <a href="https://www.jsonapi.org">additional details</a>.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Login</span>
-curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"http://localhost:3000/login"</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$'{
-  "user": {
-    "email": "cory+super_admin@me.com",
-    "password": "Test1234!"
-  }
-}'</span>
+<p>Access to resources in the Tuition.io API requires a valid API Key and an authentication token.</p>
+
+<p>Tuition.io expects your unique, public API key to be included in the <code>x-api-key</code> request header:</p>
+
+<p><code>x-api-key: API_KEY</code></p>
+
+<p>To authenticate requests, the Tuition.io API expects an authentication token to be sent in the <code>tio-auth-token</code> request header:</p>
+
+<p><code>tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw</code></p>
+
+<p>The authentication token is a JWT encoded with the <code>HS512</code> algorithm and &quot;signed&quot; with the &quot;secret&quot; component of your API Key.</p>
+
+<p>For example, Tuition.io provides you with the following API Key details:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xNTE2MjM5MDI"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purrrrrfectt"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Using the JWT gem for Ruby, you would build your own authentication token with code like this:</p>
+<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="n">claims</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">iat: </span><span class="mi">1609883853</span><span class="p">,</span> <span class="c1"># The time the JWT was computed in seconds since epoch (1609883853 =&gt; January 5, 2021 9:57:33 PM) [required]</span>
+  <span class="ss">exp: </span><span class="mi">1609887476</span><span class="p">,</span> <span class="c1"># The time this JWT expires in seconds since epoch (1609887476 =&gt; January 5, 2021 10:57:56 PM) [required]</span>
+  <span class="ss">iss: </span><span class="s1">'Example Company, LLC'</span> <span class="c1"># Something to identify you as the issuer of the token [optional]</span>
+<span class="p">}</span>
+
+<span class="n">token</span> <span class="o">=</span> <span class="no">JWT</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="n">claims</span><span class="p">,</span> <span class="s1">'purrrrrfectt'</span><span class="p">,</span> <span class="s1">'HS512'</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.<br>
-Make sure to replace <code>purrrrrfectt</code> with your authentication token.</p>
+<p>Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 </blockquote>
-
-<p>Tuition.io uses API keys to allow access to the API coupled with an authorization token.</p>
-
-<p>Tuition.io expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>x-api-key: meowmeowmeow</code><br>
-<code>tio-auth-token: purrrrrfectt</code></p>
-
+<h2 id='jwt-claims'>JWT Claims</h2>
+<p>Currently, the only required JWT claims are the &quot;issued at&quot; and &quot;expiration&quot; time stamps: <code>iat</code> and <code>exp</code>.</p>
+<h3 id='issued-at-iat'>Issued at / iat</h3>
+<p>The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting <code>iat</code> to the current timestamp should work in most cases.</p>
+<h3 id='expiration-exp'>Expiration / exp</h3>
+<p>The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.</p>
+<h2 id='example-request'>Example Request</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://localhost:3030/employees"</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s2">"x-api-key: xNTE2MjM5MDI"</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s2">"tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw"</span>
+</code></pre></div>
 <aside class="notice">
   <br>
-  You must replace <code>meowmeowmeow</code> with your API key.<br>
-  You must replace <code>purrrrrfectt</code> with your authentication token.
+  You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
+  You must replace <code>purrrrrfectt</code> with your API Key secret.
 </aside>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
 curl <span class="s2">"https://localhost:3030employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
