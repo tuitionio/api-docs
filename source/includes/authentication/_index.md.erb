@@ -25,7 +25,7 @@ echo ${jwt}
 claims = {
   iat: 1609883853, # required
   exp: 1609887476, # required
-  iss: 'Example Company, LLC' # Something to identify you as the issuer of the token [optional]
+  iss: 'Example Company, LLC' # optional
 }
 
 token = JWT.encode(claims, 'purrrrrfectt', 'HS512')
@@ -44,17 +44,15 @@ Using the JWT gem for Ruby, you would build your own authentication token with c
 
 JWT encoding libraries are available for most languages. Learn more at [jwt.io](http://jwt.io).
 
-## JWT Claims
+## Supported JWT Claims
 
 Currently, the only required JWT claims are the "issued at" and "expiration" time stamps: `iat` and `exp`.
 
-### Issued at / iat
-
-The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
-
-### Expiration / exp
-
-The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
+Parameter | Required | Description
+--------- | ------- | -----------
+`iat` | YES | The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
+`exp` | YES | The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
+`iss` | no | Something to identify you as the issuer of the token.
 
 ## Example Request
 
