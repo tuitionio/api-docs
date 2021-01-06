@@ -288,7 +288,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -299,6 +299,7 @@
       <img src="images/logo-4f276718.png" class="logo" alt="" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
+              <a href="#" data-language-name="ruby">ruby</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -312,10 +313,16 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#jwt-claims" class="toc-h2 toc-link" data-title="JWT Claims">JWT Claims</a>
+                    <a href="#build-your-own-token" class="toc-h2 toc-link" data-title="Build Your Own Token">Build Your Own Token</a>
                   </li>
                   <li>
-                    <a href="#example-request" class="toc-h2 toc-link" data-title="Example Request">Example Request</a>
+                    <a href="#supported-jwt-claims" class="toc-h2 toc-link" data-title="Supported JWT Claims">Supported JWT Claims</a>
+                  </li>
+                  <li>
+                    <a href="#request-headers-example" class="toc-h2 toc-link" data-title="Request Headers Example">Request Headers Example</a>
+                  </li>
+                  <li>
+                    <a href="#authentication-errors" class="toc-h2 toc-link" data-title="Authentication Errors">Authentication Errors</a>
                   </li>
               </ul>
           </li>
@@ -357,8 +364,8 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>This API is a service that provides access to data relevant to the tuition repayment and other financial benefits provided by Tuition.io.<br>
-The Tuition.io conforms to the JSONAPI 1.0 specification. Please refer to the specification for <a href="https://www.jsonapi.org">additional details</a>.</p>
+<p>This API is a service that provides access to data relevant to the tuition repayment and other financial benefits provided by Tuition.io.
+The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0 specification</a>. Please refer to the specification for additional details.</p>
 <h1 id='authentication'>Authentication</h1>
 <p>Access to resources in the Tuition.io API requires a valid API Key and an authentication token.</p>
 
@@ -369,42 +376,136 @@ The Tuition.io conforms to the JSONAPI 1.0 specification. Please refer to the sp
 <p>To authenticate requests, the Tuition.io API expects an authentication token to be sent in the <code>tio-auth-token</code> request header:</p>
 
 <p><code>tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw</code></p>
+<h2 id='build-your-own-token'>Build Your Own Token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nv">jwt_header</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"alg":"HS512"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">payload</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g |sed <span class="s1">'s/\//_/g'</span> |  <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">secret</span><span class="o">=</span><span class="s1">'purrrrrfectt'</span>
+<span class="nv">hmac_signature</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">"</span> |  openssl sha512 <span class="nt">-hmac</span> <span class="s2">"</span><span class="nv">$secret</span><span class="s2">"</span> <span class="nt">-binary</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">jwt</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">hmac_signature</span><span class="k">}</span><span class="s2">"</span>
 
-<p>The authentication token is a JWT encoded with the <code>HS512</code> algorithm and &quot;signed&quot; with the &quot;secret&quot; component of your API Key.</p>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">jwt</span><span class="k">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]</span>
 
-<p>For example, Tuition.io provides you with the following API Key details:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xNTE2MjM5MDI"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"purrrrrfectt"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>Using the JWT gem for Ruby, you would build your own authentication token with code like this:</p>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="n">claims</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="ss">iat: </span><span class="mi">1609883853</span><span class="p">,</span> <span class="c1"># The time the JWT was computed in seconds since epoch (1609883853 =&gt; January 5, 2021 9:57:33 PM) [required]</span>
-  <span class="ss">exp: </span><span class="mi">1609887476</span><span class="p">,</span> <span class="c1"># The time this JWT expires in seconds since epoch (1609887476 =&gt; January 5, 2021 10:57:56 PM) [required]</span>
-  <span class="ss">iss: </span><span class="s1">'Example Company, LLC'</span> <span class="c1"># Something to identify you as the issuer of the token [optional]</span>
+<span class="n">claims</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">iat: </span><span class="mi">1609883853</span><span class="p">,</span> <span class="c1"># required</span>
+  <span class="ss">exp: </span><span class="mi">1609887476</span><span class="p">,</span> <span class="c1"># required</span>
+  <span class="ss">iss: </span><span class="s1">'Example Company, LLC'</span> <span class="c1"># optional</span>
 <span class="p">}</span>
 
 <span class="n">token</span> <span class="o">=</span> <span class="no">JWT</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="n">claims</span><span class="p">,</span> <span class="s1">'purrrrrfectt'</span><span class="p">,</span> <span class="s1">'HS512'</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
+<p>Note: These examples use fixed timestamps<br>
+Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 </blockquote>
-<h2 id='jwt-claims'>JWT Claims</h2>
+
+<p>The authentication token is a <a href="http://jwt.io">JWT</a> encoded with the <code>HS512</code> algorithm and &quot;signed&quot; with the &quot;secret&quot; component of your API Key.</p>
+
+<p>For example, Tuition.io provides you with the following API Key details:</p>
+
+<table><thead>
+<tr>
+<th>Attribute Name</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>key</code></td>
+<td><code>xNTE2MjM5MDI</code></td>
+</tr>
+<tr>
+<td><code>secret</code></td>
+<td><code>purrrrrfectt</code></td>
+</tr>
+</tbody></table>
+
+<p>You might build your own authentication token with the code shown here.</p>
+
+<p>JWT encoding libraries are available for most languages. Learn more at <a href="http://jwt.io">jwt.io</a>.</p>
+<h2 id='supported-jwt-claims'>Supported JWT Claims</h2>
 <p>Currently, the only required JWT claims are the &quot;issued at&quot; and &quot;expiration&quot; time stamps: <code>iat</code> and <code>exp</code>.</p>
-<h3 id='issued-at-iat'>Issued at / iat</h3>
-<p>The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting <code>iat</code> to the current timestamp should work in most cases.</p>
-<h3 id='expiration-exp'>Expiration / exp</h3>
-<p>The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.</p>
-<h2 id='example-request'>Example Request</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://localhost:3030/employees"</span> <span class="se">\</span>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>iat</code></td>
+<td>YES</td>
+<td>The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting <code>iat</code> to the current timestamp should work in most cases.</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td>YES</td>
+<td>The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.</td>
+</tr>
+<tr>
+<td><code>iss</code></td>
+<td>no</td>
+<td>Something to identify you as the issuer of the token.</td>
+</tr>
+</tbody></table>
+<h2 id='request-headers-example'>Request Headers Example</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://localhost:3030/employees"</span> <span class="se">\</span>
     <span class="nt">-H</span> <span class="s2">"x-api-key: xNTE2MjM5MDI"</span> <span class="se">\</span>
     <span class="nt">-H</span> <span class="s2">"tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw"</span>
 </code></pre></div>
 <aside class="notice">
   <br>
+  Remember to substitute "https://localhost:3030" for the Tuition.io API<br>
   You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
-  You must replace <code>purrrrrfectt</code> with your API Key secret.
+  Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.
 </aside>
+<h2 id='authentication-errors'>Authentication Errors</h2>
+<p>The Tuition.io API will report the following errors when there is a problem with the provided API Key or authentication token.</p>
+
+<table><thead>
+<tr>
+<th>Problem</th>
+<th>Status</th>
+<th>Message</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Invalid Signature</td>
+<td>403</td>
+<td>&quot;Invalid JWT token. Make sure algorithm and JWT secret match.&quot;</td>
+<td>The authentication token does not appear to be &quot;signed&quot; with the correct API Key secret.</td>
+</tr>
+<tr>
+<td>Issued At (<code>iat</code>) Invalid</td>
+<td>403</td>
+<td>&#39;The token does not have a valid &quot;issued at&quot; time.&#39;</td>
+<td>The token&#39;s <code>iat</code> timestamp is missing, more than 1 year in the past, or set in the future.</td>
+</tr>
+<tr>
+<td>Expired Token</td>
+<td>401</td>
+<td>&quot;The token has expired.&quot;</td>
+<td>The token&#39;s <code>exp</code> timestamp is missing or has passed.</td>
+</tr>
+<tr>
+<td>Wrong Encoding Algorithm</td>
+<td>403</td>
+<td>&quot;Invalid JWT token. Make sure algorithm and JWT secret match.&quot;</td>
+<td>The token should be encoded with <code>HS512</code>. Other encoding strategies will fail.</td>
+</tr>
+<tr>
+<td>Missing Token</td>
+<td>400</td>
+<td>&quot;Missing Authentication Token&quot;</td>
+<td>The <code>tio-auth-token</code> was not set in the request headers.</td>
+</tr>
+<tr>
+<td>Missing / Invalid API Key</td>
+<td>400</td>
+<td>&quot;Invalid API Key&quot;</td>
+<td>The <code>x-api-key</code> header was not sent or contains an invalid / inactive value.</td>
+</tr>
+</tbody></table>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
 curl <span class="s2">"https://localhost:3030employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
@@ -812,6 +913,7 @@ Error objects provide additional information about problems encountered while pe
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
+                <a href="#" data-language-name="ruby">ruby</a>
           </div>
       </div>
     </div>
