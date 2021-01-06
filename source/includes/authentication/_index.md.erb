@@ -75,3 +75,17 @@ curl -X GET "<%= config[:base_url] %>/employees" \
   You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
   Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.
 </aside>
+
+## Authentication Errors
+
+The Tuition.io API will report the following errors when there is a problem with the provided API Key or authentication token.
+
+Problem | Status | Message | Description
+------- | ----------- | ------- | ------------
+Invalid Signature | 403 | "Invalid JWT token. Make sure algorithm and JWT secret match." | The authentication token does not appear to be "signed" with the correct API Key secret.
+Issued At (`iat`) Invalid | 403 | 'The token does not have a valid "issued at" time.' | The token's `iat` timestamp is missing, more than 1 year in the past, or set in the future.
+Expired Token | 401 | "The token has expired." | The token's `exp` timestamp is missing or has passed.
+Wrong Encoding Algorithm | 403 | "Invalid JWT token. Make sure algorithm and JWT secret match." | The token should be encoded with `HS512`. Other encoding strategies will fail.
+Missing Token | 400 | "Missing Authentication Token" | The `tio-auth-token` was not set in the request headers.
+Missing / Invalid API Key | 400 | "Invalid API Key" | The `x-api-key` header was not sent or contains an invalid / inactive value.
+
