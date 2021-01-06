@@ -10,44 +10,58 @@ To authenticate requests, the Tuition.io API expects an authentication token to 
 
 `tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw`
 
-The authentication token is a JWT encoded with the `HS512` algorithm and "signed" with the "secret" component of your API Key.
+## Build Your Own Token
 
-For example, Tuition.io provides you with the following API Key details:
+```shell
+#!/usr/bin/env bash
+jwt_header=$(echo -n '{"alg":"HS512"}' | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
+payload=$(echo -n '{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}' | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
+secret='purrrrrfectt'
+hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl sha512 -hmac "$secret" -binary | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
+jwt="${jwt_header}.${payload}.${hmac_signature}"
 
-```json
-{
-  "key": "xNTE2MjM5MDI",
-  "secret": "purrrrrfectt"
-}
+echo ${jwt}
 ```
 
-Using the JWT gem for Ruby, you would build your own authentication token with code like this:
-
 ```ruby
+# Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]
+
 claims = {
-  iat: 1609883853, # The time the JWT was computed in seconds since epoch (1609883853 => January 5, 2021 9:57:33 PM) [required]
-  exp: 1609887476, # The time this JWT expires in seconds since epoch (1609887476 => January 5, 2021 10:57:56 PM) [required]
-  iss: 'Example Company, LLC' # Something to identify you as the issuer of the token [optional]
+  iat: 1609883853, # required
+  exp: 1609887476, # required
+  iss: 'Example Company, LLC' # optional
 }
 
 token = JWT.encode(claims, 'purrrrrfectt', 'HS512')
 ```
 
+> Note: These examples use fixed timestamps<br>
 > Make sure to replace `purrrrrfectt` with your API Key secret.
 
-## JWT Claims
+The authentication token is a [JWT](http://jwt.io) encoded with the `HS512` algorithm and "signed" with the "secret" component of your API Key.
+
+For example, Tuition.io provides you with the following API Key details:
+
+Attribute Name | Value
+-------------- | -------------
+`key`          | `xNTE2MjM5MDI`
+`secret`       | `purrrrrfectt`
+
+You might build your own authentication token with the code shown here.
+
+JWT encoding libraries are available for most languages. Learn more at [jwt.io](http://jwt.io).
+
+## Supported JWT Claims
 
 Currently, the only required JWT claims are the "issued at" and "expiration" time stamps: `iat` and `exp`.
 
-### Issued at / iat
+Parameter | Required | Description
+--------- | ------- | -----------
+`iat` | YES | The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
+`exp` | YES | The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
+`iss` | no | Something to identify you as the issuer of the token.
 
-The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
-
-### Expiration / exp
-
-The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
-
-## Example Request
+## Request Headers Example
 
 ```shell
 curl -X GET "<%= config[:base_url] %>/employees" \
@@ -57,6 +71,21 @@ curl -X GET "<%= config[:base_url] %>/employees" \
 
 <aside class="notice">
   <br>
+  Remember to substitute "<%= config[:base_url] %>" for the Tuition.io API<br>
   You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
-  You must replace <code>purrrrrfectt</code> with your API Key secret.
+  Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.
 </aside>
+
+## Authentication Errors
+
+The Tuition.io API will report the following errors when there is a problem with the provided API Key or authentication token.
+
+Problem | Status | Message | Description
+------- | ----------- | ------- | ------------
+Invalid Signature | 403 | "Invalid JWT token. Make sure algorithm and JWT secret match." | The authentication token does not appear to be "signed" with the correct API Key secret.
+Issued At (`iat`) Invalid | 403 | 'The token does not have a valid "issued at" time.' | The token's `iat` timestamp is missing, more than 1 year in the past, or set in the future.
+Expired Token | 401 | "The token has expired." | The token's `exp` timestamp is missing or has passed.
+Wrong Encoding Algorithm | 403 | "Invalid JWT token. Make sure algorithm and JWT secret match." | The token should be encoded with `HS512`. Other encoding strategies will fail.
+Missing Token | 400 | "Missing Authentication Token" | The `tio-auth-token` was not set in the request headers.
+Missing / Invalid API Key | 400 | "Invalid API Key" | The `x-api-key` header was not sent or contains an invalid / inactive value.
+
