@@ -10,6 +10,8 @@ To authenticate requests, the Tuition.io API expects an authentication token to 
 
 `tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw`
 
+## Build Your Own Token
+
 ```shell
 #!/usr/bin/env bash
 jwt_header=$(echo -n '{"alg":"HS512"}' | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
@@ -22,6 +24,8 @@ echo ${jwt}
 ```
 
 ```ruby
+# Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]
+
 claims = {
   iat: 1609883853, # required
   exp: 1609887476, # required
@@ -31,16 +35,19 @@ claims = {
 token = JWT.encode(claims, 'purrrrrfectt', 'HS512')
 ```
 
+> Note: These examples use fixed timestamps<br>
 > Make sure to replace `purrrrrfectt` with your API Key secret.
 
-The authentication token is a JWT encoded with the `HS512` algorithm and "signed" with the "secret" component of your API Key.
+The authentication token is a [JWT](http://jwt.io) encoded with the `HS512` algorithm and "signed" with the "secret" component of your API Key.
 
 For example, Tuition.io provides you with the following API Key details:
 
-* (Public) Key: `xNTE2MjM5MDI`
-* Secret: `purrrrrfectt`
+Attribute Name | Value
+-------------- | -------------
+`key`          | `xNTE2MjM5MDI`
+`secret`       | `purrrrrfectt`
 
-Using the JWT gem for Ruby, you would build your own authentication token with code like this:
+You might build your own authentication token with the code shown here.
 
 JWT encoding libraries are available for most languages. Learn more at [jwt.io](http://jwt.io).
 
@@ -54,7 +61,7 @@ Parameter | Required | Description
 `exp` | YES | The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
 `iss` | no | Something to identify you as the issuer of the token.
 
-## Example Request
+## Request Headers Example
 
 ```shell
 curl -X GET "<%= config[:base_url] %>/employees" \
@@ -64,7 +71,7 @@ curl -X GET "<%= config[:base_url] %>/employees" \
 
 <aside class="notice">
   <br>
-  Remember to set the `<%= config[:base_url] %>` for the Tuition.io API<br>
+  Remember to substitute "<%= config[:base_url] %>" for the Tuition.io API<br>
   You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
-  Send the authentication token (JWT) you generate and sign with your secret in the `tio-auth-token` header.
+  Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.
 </aside>
