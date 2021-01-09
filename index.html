@@ -327,6 +327,25 @@
               </ul>
           </li>
           <li>
+            <a href="#jsonapi-basics" class="toc-h1 toc-link" data-title="JSONAPI Basics">JSONAPI Basics</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#query-parameters" class="toc-h2 toc-link" data-title="Query Parameters">Query Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#companies" class="toc-h1 toc-link" data-title="Companies">Companies</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#list-companies" class="toc-h2 toc-link" data-title="List Companies">List Companies</a>
+                  </li>
+                  <li>
+                    <a href="#show-company" class="toc-h2 toc-link" data-title="Show Company">Show Company</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#employees" class="toc-h1 toc-link" data-title="Employees">Employees</a>
               <ul class="toc-list-h2">
                   <li>
@@ -371,20 +390,13 @@ The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0
 
 <p>Tuition.io expects your unique, public API key to be included in the <code>x-api-key</code> request header:</p>
 
-<p><code>x-api-key: API_KEY</code></p>
+<p><code>x-api-key: &lt;API_KEY&gt;</code></p>
 
 <p>To authenticate requests, the Tuition.io API expects an authentication token to be sent in the <code>tio-auth-token</code> request header:</p>
 
 <p><code>tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw</code></p>
-<h2 id='build-your-own-token'>Build Your Own Token</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">#!/usr/bin/env bash</span>
-<span class="nv">jwt_header</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"alg":"HS512"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
-<span class="nv">payload</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g |sed <span class="s1">'s/\//_/g'</span> |  <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
-<span class="nv">secret</span><span class="o">=</span><span class="s1">'purrrrrfectt'</span>
-<span class="nv">hmac_signature</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">"</span> |  openssl sha512 <span class="nt">-hmac</span> <span class="s2">"</span><span class="nv">$secret</span><span class="s2">"</span> <span class="nt">-binary</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
-<span class="nv">jwt</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">hmac_signature</span><span class="k">}</span><span class="s2">"</span>
-
-<span class="nb">echo</span> <span class="k">${</span><span class="nv">jwt</span><span class="k">}</span>
-</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]</span>
+<h2 id='build-your-own-token'>Build Your Own Token</h2>
+<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]</span>
 
 <span class="n">claims</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">iat: </span><span class="mi">1609883853</span><span class="p">,</span> <span class="c1"># required</span>
@@ -394,6 +406,17 @@ The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0
 
 <span class="n">token</span> <span class="o">=</span> <span class="no">JWT</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="n">claims</span><span class="p">,</span> <span class="s1">'purrrrrfectt'</span><span class="p">,</span> <span class="s1">'HS512'</span><span class="p">)</span>
 </code></pre></div>
+
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nv">jwt_header</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"alg":"HS512"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">payload</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g |sed <span class="s1">'s/\//_/g'</span> |  <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">secret</span><span class="o">=</span><span class="s1">'purrrrrfectt'</span>
+<span class="nv">hmac_signature</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">"</span> |  openssl sha512 <span class="nt">-hmac</span> <span class="s2">"</span><span class="nv">$secret</span><span class="s2">"</span> <span class="nt">-binary</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">jwt</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">hmac_signature</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">jwt</span><span class="k">}</span>
+</code></pre></div>
+
 <blockquote>
 <p>Note: These examples use fixed timestamps<br>
 Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
@@ -411,7 +434,7 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 </thead><tbody>
 <tr>
 <td><code>key</code></td>
-<td><code>xNTE2MjM5MDI</code></td>
+<td><code>meowmeowmeow</code></td>
 </tr>
 <tr>
 <td><code>secret</code></td>
@@ -449,16 +472,17 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 </tr>
 </tbody></table>
 <h2 id='request-headers-example'>Request Headers Example</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="s2">"https://localhost:3030/employees"</span> <span class="se">\</span>
-    <span class="nt">-H</span> <span class="s2">"x-api-key: xNTE2MjM5MDI"</span> <span class="se">\</span>
+    <span class="nt">-H</span> <span class="s2">"x-api-key: meowmeowmeow"</span> <span class="se">\</span>
     <span class="nt">-H</span> <span class="s2">"tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw"</span>
 </code></pre></div>
 <aside class="notice">
-  <br>
-  Remember to substitute "https://localhost:3030" for the Tuition.io API<br>
-  You must replace <code>xNTE2MjM5MDI</code> with your API key.<br>
-  Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.
+  <p>Remember to substitute <code>https://localhost:3030</code> for the Tuition.io API.</p>
+  <p>You must replace <code>meowmeowmeow</code> with your API key.</p>
+  <p>Send the authentication token (JWT) you generate and sign with your secret in the "tio-auth-token" header.</p>
 </aside>
+
 <h2 id='authentication-errors'>Authentication Errors</h2>
+
 <p>The Tuition.io API will report the following errors when there is a problem with the provided API Key or authentication token.</p>
 
 <table><thead>
@@ -506,10 +530,167 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 <td>The <code>x-api-key</code> header was not sent or contains an invalid / inactive value.</td>
 </tr>
 </tbody></table>
-<h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
-curl <span class="s2">"https://localhost:3030employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
+<h1 id='jsonapi-basics'>JSONAPI Basics</h1>
+<p>The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0 specification</a>.</p>
+<h2 id='query-parameters'>Query Parameters</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page[limit]</td>
+<td>50</td>
+<td>The number of records to fetch. (Max: 200)</td>
+</tr>
+<tr>
+<td>page[offset]</td>
+<td>0</td>
+<td>The index of the first record to fetch.</td>
+</tr>
+<tr>
+<td>include</td>
+<td>NONE</td>
+<td>A comma-separated list of association types to &quot;side-load&quot; in the response payload.</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>id</td>
+<td>For listing endpoints, the attribute the API should use to sort results. Prefix with a <code>-</code> to indicate descending order.</td>
+</tr>
+<tr>
+<td>fields[type]</td>
+<td>all</td>
+<td>A comma-separated list of attributes to render in the JSON response</td>
+</tr>
+</tbody></table>
+<h1 id='companies'>Companies</h1><h2 id='list-companies'>List Companies</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Companies</span>
+curl <span class="s2">"https://localhost:3030/companies"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">'tio-auth-token: purrrrrfectt'</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
+</code></pre></div>
+<blockquote>
+<p>The above request returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1337"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"companies"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cat Co."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"requester"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"copyright"</span><span class="p">:</span><span class="w"> </span><span class="s2">"©2021"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://localhost:3030/companies</code></p>
+
+<h3 id='attributes'>Attributes</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name</code></td>
+<td>The name of the company.</td>
+</tr>
+</tbody></table>
+
+<h3 id='associations'>Associations</h3>
+
+<table><thead>
+<tr>
+<th>Association</th>
+<th>One / Many</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>employees</code></td>
+<td>Many</td>
+<td>List of employees associated to the company</td>
+</tr>
+<tr>
+<td><code>plans</code></td>
+<td>Many</td>
+<td>List of contribution plans associated to the company</td>
+</tr>
+</tbody></table>
+<h2 id='show-company'>Show Company</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Company</span>
+curl <span class="s2">"https://localhost:3030/companies/1337"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
+</code></pre></div>
+<blockquote>
+<p>The above request returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1337"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"companies"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cat Co."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"requester"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"copyright"</span><span class="p">:</span><span class="w"> </span><span class="s2">"©2021"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://localhost:3030/companies/&lt;ID&gt;</code></p>
+
+<h3 id='attributes'>Attributes</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name</code></td>
+<td>The name of the company.</td>
+</tr>
+</tbody></table>
+
+<h3 id='associations'>Associations</h3>
+
+<table><thead>
+<tr>
+<th>Association</th>
+<th>One / Many</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>employees</code></td>
+<td>Many</td>
+<td>List of employees associated to the company</td>
+</tr>
+<tr>
+<td><code>plans</code></td>
+<td>Many</td>
+<td>List of contribution plans associated to the company</td>
+</tr>
+</tbody></table>
+<h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
+curl <span class="s2">"https://localhost:3030/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -542,25 +723,6 @@ curl <span class="s2">"https://localhost:3030employees?page%5Blimit%5D=2"</span>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p><code>GET https://localhost:3030/employees?page%5Blimit%5D=2</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>page[limit]</td>
-<td>500</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>page[offset]</td>
-<td>0</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody></table>
 
 <aside class="success">
 Remember — additional information is included in the response. See relations and parameters for more info.
@@ -568,7 +730,7 @@ Remember — additional information is included in the response. See relations a
 
 <p><h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span>
 </code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -604,7 +766,7 @@ Remember — additional information is included in the response. See relations a
 <p><h2 id='create-employee'>Create Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
 curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
         &quot;data&quot;: {
@@ -676,7 +838,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 
 <p><h2 id='update-a-specific-employee'>Update a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
         &quot;data&quot;: {
           &quot;id&quot;: &quot;4064&quot;,
@@ -740,7 +902,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 
 <p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json; charset=utf-8&#39;</span>
 </code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
@@ -761,7 +923,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 
 <p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: purrrrrfectt&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
         &quot;data&quot;: [
