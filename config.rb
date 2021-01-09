@@ -43,7 +43,10 @@ set :relative_links, true
 set :api_key, 'meowmeowmeow'
 config[:api_key]
 
-set :api_token, 'purrrrrfectt'
+set :api_secret, 'purrrrrfectt'
+config[:api_secret]
+
+set :api_token, 'eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'
 config[:api_token]
 
 set :base_url, 'https://localhost:3030'

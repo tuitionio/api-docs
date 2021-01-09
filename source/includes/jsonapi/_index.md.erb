@@ -1,0 +1,13 @@
+# JSONAPI Basics
+
+The Tuition.io API conforms to the [JSONAPI 1.0 specification](https://www.jsonapi.org).
+
+## Query Parameters
+
+Parameter     | Default   | Description
+------------- | --------- | -----------
+page[limit]   | 50        | The number of records to fetch. (Max: 200)
+page[offset]  | 0         | The index of the first record to fetch.
+include       | NONE      | A comma-separated list of association types to "side-load" in the response payload.
+sort          | id        | For listing endpoints, the attribute the API should use to sort results. Prefix with a `-` to indicate descending order.
+fields[type]  | all       | A comma-separated list of attributes to render in the JSON response
