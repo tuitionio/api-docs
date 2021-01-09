@@ -1,0 +1,11 @@
+```ruby
+# Using the Ruby JWT Gem: [https://github.com/jwt/ruby-jwt]
+
+claims = {
+  iat: 1609883853, # required
+  exp: 1609887476, # required
+  iss: 'Example Company, LLC' # optional
+}
+
+token = JWT.encode(claims, '<%= config[:api_secret] %>', 'HS512')
+```

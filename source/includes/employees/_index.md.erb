@@ -4,7 +4,7 @@
 
 ```shell
 ## Request Employees
-curl "<%= config[:base_url]%>employees?page%5Blimit%5D=2" \
+curl "<%= config[:base_url] %>/employees?page%5Blimit%5D=2" \
      -H 'x-api-key: <%= config[:api_key] %>' \
      -H 'tio-auth-token: <%= config[:api_token] %>'
 ```
@@ -41,13 +41,6 @@ curl "<%= config[:base_url]%>employees?page%5Blimit%5D=2" \
 ```
 
 `GET <%= config[:base_url] %>/employees?page%5Blimit%5D=2`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-page[limit] | 500 | If set to true, the result will also include cats.
-page[offset] | 0 | If set to false, the result will include kittens that have already been adopted.
 
 <aside class="success">
 Remember — additional information is included in the response. See relations and parameters for more info.
