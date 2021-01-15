@@ -565,6 +565,11 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 <td>all</td>
 <td>A comma-separated list of attributes to render in the JSON response</td>
 </tr>
+<tr>
+<td>filter[type]</td>
+<td>NONE</td>
+<td>A comma-separated list of attribute values with which to filter the results</td>
+</tr>
 </tbody></table>
 <h1 id='companies'>Companies</h1><h2 id='list-companies'>List Companies</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Companies</span>
 curl <span class="s2">"https://localhost:3030/companies"</span> <span class="se">\</span>
@@ -652,6 +657,18 @@ curl <span class="s2">"https://localhost:3030/companies/1337"</span> <span class
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://localhost:3030/companies/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the company to retrieve</td>
+</tr>
+</tbody></table>
 
 <h3 id='attributes'>Attributes</h3>
 
@@ -742,7 +759,14 @@ Remember — additional information is included in the response. See relations a
     </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Riley&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anna@test.com&quot;</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anna@test.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;payroll-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123ABC&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;is-active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;salary&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;contribution-amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;custom-attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;favorite-color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -762,6 +786,78 @@ Remember — additional information is included in the response. See relations a
 <td>The ID of the employee to retrieve</td>
 </tr>
 </tbody></table></p>
+
+<h3 id='attributes'>Attributes</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>The email address of the employee</td>
+</tr>
+<tr>
+<td><code>first-name</code></td>
+<td>string</td>
+<td>The first name of the employee</td>
+</tr>
+<tr>
+<td><code>last-name</code></td>
+<td>string</td>
+<td>The last name of the employee</td>
+</tr>
+<tr>
+<td><code>payroll-id</code></td>
+<td>string</td>
+<td>The unique payroll ID of the employee</td>
+</tr>
+<tr>
+<td><code>is-active</code></td>
+<td>boolean</td>
+<td>If the employee is active (defaults to <code>true</code>)</td>
+</tr>
+<tr>
+<td><code>salary</code></td>
+<td>integer</td>
+<td>The salary of the employee (in the smallest whole unit of currency, i.e. cents for USD)</td>
+</tr>
+<tr>
+<td><code>contribution-amount</code></td>
+<td>integer</td>
+<td>A custom contribution amount for the employee (in the smallest whole unit of currency, i.e. cents for USD)</td>
+</tr>
+<tr>
+<td><code>custom-attributes</code></td>
+<td>object</td>
+<td>An object for storing any custom attributes relevant to the employee</td>
+</tr>
+</tbody></table>
+
+<h3 id='associations'>Associations</h3>
+
+<table><thead>
+<tr>
+<th>Association</th>
+<th>One / Many</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>company</code></td>
+<td>One</td>
+<td>The company associated with the employee</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>One</td>
+<td>The contribution plan associated with the employee</td>
+</tr>
+</tbody></table>
 
 <p><h2 id='create-employee'>Create Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
 curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/employees&quot;</span> <span class="se">\</span>
@@ -900,14 +996,22 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </tr>
 </tbody></table></p>
 
-<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/json; charset=utf-8&#39;</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+        &quot;data&quot;: {
+          &quot;id&quot;: &quot;4064&quot;,
+          &quot;type&quot;: &quot;employees&quot;,
+          &quot;attributes&quot;: {
+            &quot;is-active&quot;: false
+          }
+        }
+      }&#39;</span>
 </code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>DELETE https://localhost:3030/employees/&lt;ID&gt;</code></p>
+<p><code>PATCH https://localhost:3030/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -918,6 +1022,20 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>ID</td>
 <td>The ID of the employee to deactivate</td>
+</tr>
+</tbody></table>
+<h3 id='body-parameters'>BODY Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>is-active</td>
+<td>boolean</td>
+<td>To deactivate an employee, <code>is-active</code> must be false</td>
 </tr>
 </tbody></table></p>
 
