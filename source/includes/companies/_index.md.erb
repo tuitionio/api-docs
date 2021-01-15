@@ -70,6 +70,12 @@ curl "<%= config[:base_url] %>/companies/1337" \
 
 `GET <%= config[:base_url]%>/companies/<ID>`
 
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the company to retrieve
+
 <%= partial "includes/companies/attributes.md.erb" %>
 <%= partial "includes/companies/associations.md.erb" %>
 
