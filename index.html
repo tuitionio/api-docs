@@ -568,9 +568,13 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 <tr>
 <td>filter[type]</td>
 <td>NONE</td>
-<td>A comma-separated list of attribute values with which to filter the results</td>
+<td>A comma-separated list of attribute values with which to filter the results.</td>
 </tr>
 </tbody></table>
+
+<aside class="success">
+For a full list of available fields and filters by record type, please reference the specific documentation for that type.
+</aside>
 <h1 id='companies'>Companies</h1><h2 id='list-companies'>List Companies</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Companies</span>
 curl <span class="s2">"https://localhost:3030/companies"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
@@ -757,15 +761,33 @@ Remember — additional information is included in the response. See relations a
     </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4064&quot;</span><span class="p">,</span><span class="w">
     </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;employees&quot;</span><span class="p">,</span><span class="w">
     </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Riley&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;anna@test.com&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;payroll-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123ABC&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;is-active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;salary&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Calvin&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Broadus&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;suffix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jr.&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;snoop.dogg@example.com&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;phone-number&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123-456-7890&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;address-line-1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123 Main St&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;address-line-2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Apt 5&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Long Beach&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CA&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;postal-code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;90814&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;country&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;United States&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;birth-year&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1971&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;employment-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FULL_TIME&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;employment-start-date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-13T00:00:00.000Z&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;employment-end-date&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;salary&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50000000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rate-period&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YEARLY&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;contribution-amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15000</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;eligibility-start-date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-01-13T00:00:00.000Z&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;eligibility-end-date&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Celebrite Host&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Martha &amp; Snoop&#39;s Potluck Dinner Party&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;cost-center&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ABC123&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;custom-attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">&quot;favorite-color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yellow&quot;</span><span class="w">
+        </span><span class="nl">&quot;favorite-hobby&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cooking&quot;</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -797,21 +819,6 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </thead><tbody>
 <tr>
-<td><code>email</code></td>
-<td>string</td>
-<td>The email address of the employee</td>
-</tr>
-<tr>
-<td><code>first-name</code></td>
-<td>string</td>
-<td>The first name of the employee</td>
-</tr>
-<tr>
-<td><code>last-name</code></td>
-<td>string</td>
-<td>The last name of the employee</td>
-</tr>
-<tr>
 <td><code>payroll-id</code></td>
 <td>string</td>
 <td>The unique payroll ID of the employee</td>
@@ -822,14 +829,119 @@ Remember — additional information is included in the response. See relations a
 <td>If the employee is active (defaults to <code>true</code>)</td>
 </tr>
 <tr>
+<td><code>first-name</code></td>
+<td>string</td>
+<td>First / given name (e.g. &quot;Calvin&quot;)</td>
+</tr>
+<tr>
+<td><code>last-name</code></td>
+<td>string</td>
+<td>Last / family name (e.g. &quot;Broadus&quot;)</td>
+</tr>
+<tr>
+<td><code>suffix</code></td>
+<td>string</td>
+<td>Name suffix (e.g. &quot;Jr.&quot;)</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>Email address (e.g. &quot;snoop.dogg@example.com&quot;)</td>
+</tr>
+<tr>
+<td><code>phone-number</code></td>
+<td>string</td>
+<td>Phone number (e.g. &quot;123-456-7890&quot;)</td>
+</tr>
+<tr>
+<td><code>address-line-1</code></td>
+<td>string</td>
+<td>Street address (e.g. &quot;123 Main St&quot;)</td>
+</tr>
+<tr>
+<td><code>address-line-2</code></td>
+<td>string</td>
+<td>Additional street address (e.g. &quot;Apt 5&quot;)</td>
+</tr>
+<tr>
+<td><code>city</code></td>
+<td>string</td>
+<td>City (e.g. &quot;Long Beach&quot;)</td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>string</td>
+<td>State (e.g. &quot;CA&quot;)</td>
+</tr>
+<tr>
+<td><code>postal-code</code></td>
+<td>string</td>
+<td>Postal code (e.g. &quot;90814&quot;)</td>
+</tr>
+<tr>
+<td><code>country</code></td>
+<td>string</td>
+<td>Country (e.g. &quot;United States&quot;)</td>
+</tr>
+<tr>
+<td><code>birth-year</code></td>
+<td>string</td>
+<td>Birth year (e.g. &quot;1973&quot;)</td>
+</tr>
+<tr>
+<td><code>employment-type</code></td>
+<td>string</td>
+<td>Employment type. Valid values are <code>FULL_TIME</code>, <code>PART_TIME</code>, or <code>EXEMPT</code>.</td>
+</tr>
+<tr>
+<td><code>employment-start-date</code></td>
+<td>string</td>
+<td>Employment start date, in ISO 8601 format</td>
+</tr>
+<tr>
+<td><code>employment-end-date</code></td>
+<td>string</td>
+<td>Employment end date, in ISO 8601 format</td>
+</tr>
+<tr>
 <td><code>salary</code></td>
 <td>integer</td>
-<td>The salary of the employee (in the smallest whole unit of currency, i.e. cents for USD)</td>
+<td>Salary / pay rate (in the smallest whole unit of currency, i.e. cents for USD)</td>
+</tr>
+<tr>
+<td><code>rate-period</code></td>
+<td>string</td>
+<td>Pay rate period of the employee as it relates to the value of <code>salary</code>. Valid values are <code>YEARLY</code>, <code>MONTHLY</code>, <code>WEEKLY</code>, <code>BI-WEEKLY</code> or <code>HOURLY</code>.</td>
 </tr>
 <tr>
 <td><code>contribution-amount</code></td>
 <td>integer</td>
-<td>A custom contribution amount for the employee (in the smallest whole unit of currency, i.e. cents for USD)</td>
+<td>Contribution amount (in the smallest whole unit of currency, i.e. cents for USD)</td>
+</tr>
+<tr>
+<td><code>eligibility-start-date</code></td>
+<td>string</td>
+<td>Eligibility start date, in ISO 8601 format</td>
+</tr>
+<tr>
+<td><code>eligibility-end-date</code></td>
+<td>string</td>
+<td>Eligibility end date, in ISO 8601 format</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>Title (e.g. &quot;Executive Director&quot;)</td>
+</tr>
+<tr>
+<td><code>department</code></td>
+<td>string</td>
+<td>Department (e.g. &quot;Human Resources&quot;)</td>
+</tr>
+<tr>
+<td><code>cost-center</code></td>
+<td>string</td>
+<td>Cost center</td>
 </tr>
 <tr>
 <td><code>custom-attributes</code></td>
