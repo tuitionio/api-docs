@@ -1108,22 +1108,13 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </tr>
 </tbody></table></p>
 
-<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-        &quot;data&quot;: {
-          &quot;id&quot;: &quot;4064&quot;,
-          &quot;type&quot;: &quot;employees&quot;,
-          &quot;attributes&quot;: {
-            &quot;is-active&quot;: false
-          }
-        }
-      }&#39;</span>
 </code></pre></div>
 <p>This endpoint deactivates a specific employee.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>PATCH https://localhost:3030/employees/&lt;ID&gt;</code></p>
+<p><code>DELETE https://localhost:3030/employees/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -1134,20 +1125,6 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>ID</td>
 <td>The ID of the employee to deactivate</td>
-</tr>
-</tbody></table>
-<h3 id='body-parameters'>BODY Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>is-active</td>
-<td>boolean</td>
-<td>To deactivate an employee, <code>is-active</code> must be false</td>
 </tr>
 </tbody></table></p>
 
