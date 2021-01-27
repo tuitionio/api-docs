@@ -1,0 +1,21 @@
+## Reinstate a Specific Employee
+
+```shell
+curl -X PATCH "<%= config[:base_url] %>/employees/<ID>/reinstate" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+```
+
+This endpoint reinstates a previously terminated employee.
+
+Employees who have been reinstated will be active and have status `REACTIVATED`.
+
+### HTTP Request
+
+`PATCH <%= config[:base_url]%>/employees/<ID>/reinstate`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the employee to reinstate

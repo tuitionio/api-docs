@@ -3,7 +3,8 @@
 Attribute                | Type    | Description
 ------------------------ | ------- | --------------------------
 `payroll-id`             | string  | The unique payroll ID of the employee
-`is-active`              | boolean | If the employee is active (defaults to `true`)
+`is-active`              | boolean | If the employee is active (defaults to `true`) **(read-only)**
+`status`                 | string  | Participation status (Valid values are `CREATED`, `INVITED`, `PARTICIPATING`, `LEAVE_OF_ABSENCE`, `DEACTIVATED`, or `REACTIVATED`) **(read-only)**
 `first-name`             | string  | First / given name (e.g. "Calvin")
 `last-name`              | string  | Last / family name (e.g. "Broadus")
 `suffix`                 | string  | Name suffix (e.g. "Jr.")

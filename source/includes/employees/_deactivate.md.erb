@@ -1,4 +1,4 @@
-## Deactivate a Specific Employee
+## Terminate a Specific Employee
 
 ```shell
 curl -X DELETE "<%= config[:base_url] %>/employees/<ID>" \\
@@ -6,7 +6,9 @@ curl -X DELETE "<%= config[:base_url] %>/employees/<ID>" \\
      -H 'tio-auth-token: <%= config[:api_token] %>' \\
 ```
 
-This endpoint deactivates a specific employee.
+This endpoint terminates a specific employee.
+
+Employees who have been terminated will be inactive and have status `DEACTIVATED`.
 
 ### HTTP Request
 
@@ -16,4 +18,4 @@ This endpoint deactivates a specific employee.
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the employee to deactivate
+ID | The ID of the employee to terminate

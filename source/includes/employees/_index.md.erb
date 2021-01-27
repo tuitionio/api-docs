@@ -46,10 +46,13 @@ curl "<%= config[:base_url] %>/employees?page%5Blimit%5D=2" \
 Remember — additional information is included in the response. See relations and parameters for more info.
 </aside>
 
+<%= partial "includes/employees/query_params.md.erb" %>
+
 <%= partial "includes/employees/request.md" %>
 <%= partial "includes/employees/create.md" %>
 <%= partial "includes/employees/update.md" %>
 <%= partial "includes/employees/deactivate.md" %>
+<%= partial "includes/employees/reinstate.md" %>
 <%= partial "includes/employees/contributions.md" %>
 
 
