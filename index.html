@@ -361,7 +361,10 @@
                     <a href="#update-a-specific-employee" class="toc-h2 toc-link" data-title="Update a Specific Employee">Update a Specific Employee</a>
                   </li>
                   <li>
-                    <a href="#deactivate-a-specific-employee" class="toc-h2 toc-link" data-title="Deactivate a Specific Employee">Deactivate a Specific Employee</a>
+                    <a href="#terminate-a-specific-employee" class="toc-h2 toc-link" data-title="Terminate a Specific Employee">Terminate a Specific Employee</a>
+                  </li>
+                  <li>
+                    <a href="#reinstate-a-specific-employee" class="toc-h2 toc-link" data-title="Reinstate a Specific Employee">Reinstate a Specific Employee</a>
                   </li>
                   <li>
                     <a href="#add-update-a-plan-for-an-employee" class="toc-h2 toc-link" data-title="Add / Update a Plan for an Employee">Add / Update a Plan for an Employee</a>
@@ -749,6 +752,24 @@ curl <span class="s2">"https://localhost:3030/employees?page%5Blimit%5D=2"</span
 Remember — additional information is included in the response. See relations and parameters for more info.
 </aside>
 
+<h3 id='query-parameters'>Query Parameters</h3>
+
+<p><code>GET https://localhost:3030/employees?filter[is-active]=false</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>filter[is-active]</code></td>
+<td>true</td>
+<td>Filter employees by <code>is-active</code></td>
+</tr>
+</tbody></table>
+
 <p><h2 id='get-a-specific-employee'>Get a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span>
@@ -763,6 +784,7 @@ Remember — additional information is included in the response. See relations a
     </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">&quot;payroll-id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123ABC&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;is-active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATED&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Calvin&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Broadus&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;suffix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jr.&quot;</span><span class="p">,</span><span class="w">
@@ -826,7 +848,12 @@ Remember — additional information is included in the response. See relations a
 <tr>
 <td><code>is-active</code></td>
 <td>boolean</td>
-<td>If the employee is active (defaults to <code>true</code>)</td>
+<td>If the employee is active (defaults to <code>true</code>) <strong>(read-only)</strong></td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td>Participation status (Valid values are <code>CREATED</code>, <code>INVITED</code>, <code>PARTICIPATING</code>, <code>LEAVE_OF_ABSENCE</code>, <code>DEACTIVATED</code>, or <code>REACTIVATED</code>) <strong>(read-only)</strong></td>
 </tr>
 <tr>
 <td><code>first-name</code></td>
@@ -1108,14 +1135,20 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </tr>
 </tbody></table></p>
 
-<p><h2 id='deactivate-a-specific-employee'>Deactivate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+<p><h2 id='terminate-a-specific-employee'>Terminate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> DELETE <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
 </code></pre></div>
-<p>This endpoint deactivates a specific employee.</p>
+<p>This endpoint terminates a specific employee.</p></p>
+
+<p>Employees who have been terminated will be inactive and have status <code>DEACTIVATED</code>.</p>
+
 <h3 id='http-request'>HTTP Request</h3>
+
 <p><code>DELETE https://localhost:3030/employees/&lt;ID&gt;</code></p>
+
 <h3 id='url-parameters'>URL Parameters</h3>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1124,9 +1157,35 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the employee to deactivate</td>
+<td>The ID of the employee to terminate</td>
 </tr>
-</tbody></table></p>
+</tbody></table>
+
+<p><h2 id='reinstate-a-specific-employee'>Reinstate a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;/reinstate&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
+</code></pre></div>
+<p>This endpoint reinstates a previously terminated employee.</p></p>
+
+<p>Employees who have been reinstated will be active and have status <code>REACTIVATED</code>.</p>
+
+<h3 id='http-request'>HTTP Request</h3>
+
+<p><code>PATCH https://localhost:3030/employees/&lt;ID&gt;/reinstate</code></p>
+
+<h3 id='url-parameters'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the employee to reinstate</td>
+</tr>
+</tbody></table>
 
 <p><h2 id='add-update-a-plan-for-an-employee'>Add / Update a Plan for an Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/plans/2/relationships/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
