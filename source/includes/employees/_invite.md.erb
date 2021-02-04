@@ -1,0 +1,24 @@
+## Invite a Specific Employee
+
+```shell
+curl -X PATCH "<%= config[:base_url] %>/employees/<ID>/invite" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+```
+
+This endpoint sends an invite to an eligible employee.
+
+<aside class="warning">
+Invite emails are automatically sent after creating a new employee.
+This endpoint will <b>re-send</b> a new invite if the specified employee has not yet registered with Tuition.io.
+</aside>
+
+### HTTP Request
+
+`PATCH <%= config[:base_url]%>/employees/<ID>/invite`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the employee to invite

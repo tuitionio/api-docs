@@ -45,6 +45,10 @@ curl -X "POST" "<%= config[:base_url] %>/employees" \\
 
 This endpoint creates a specific employee.
 
+<aside class="success">
+After an employee is created successfully, an invite email will be generated and sent to the created employee (if a valid email address is present).
+</aside>
+
 ### HTTP Request
 
 `POST <%= config[:base_url]%>/employees`
