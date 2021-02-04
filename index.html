@@ -367,6 +367,9 @@
                     <a href="#reinstate-a-specific-employee" class="toc-h2 toc-link" data-title="Reinstate a Specific Employee">Reinstate a Specific Employee</a>
                   </li>
                   <li>
+                    <a href="#invite-a-specific-employee" class="toc-h2 toc-link" data-title="Invite a Specific Employee">Invite a Specific Employee</a>
+                  </li>
+                  <li>
                     <a href="#add-update-a-plan-for-an-employee" class="toc-h2 toc-link" data-title="Add / Update a Plan for an Employee">Add / Update a Plan for an Employee</a>
                   </li>
                   <li>
@@ -1039,10 +1042,18 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint creates a specific employee.</p>
+<p>This endpoint creates a specific employee.</p></p>
+
+<aside class="success">
+After an employee is created successfully, an invite email will be generated and sent to the created employee (if a valid email address is present).
+</aside>
+
 <h3 id='http-request'>HTTP Request</h3>
+
 <p><code>POST https://localhost:3030/employees</code></p>
+
 <h3 id='body-parameters'>BODY Parameters</h3>
+
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1069,7 +1080,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <td>payroll-id</td>
 <td>The company payroll id for the employee</td>
 </tr>
-</tbody></table></p>
+</tbody></table>
 
 <p><h2 id='update-a-specific-employee'>Update a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
@@ -1184,6 +1195,35 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>ID</td>
 <td>The ID of the employee to reinstate</td>
+</tr>
+</tbody></table>
+
+<p><h2 id='invite-a-specific-employee'>Invite a Specific Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PATCH <span class="s2">&quot;https://localhost:3030/employees/&lt;ID&gt;/invite&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
+</code></pre></div>
+<p>This endpoint sends an invite to an eligible employee.</p></p>
+
+<aside class="warning">
+Invite emails are automatically sent after creating a new employee.
+This endpoint will <b>re-send</b> a new invite if the specified employee has not yet registered with Tuition.io.
+</aside>
+
+<h3 id='http-request'>HTTP Request</h3>
+
+<p><code>PATCH https://localhost:3030/employees/&lt;ID&gt;/invite</code></p>
+
+<h3 id='url-parameters'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the employee to invite</td>
 </tr>
 </tbody></table>
 
