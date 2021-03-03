@@ -36,10 +36,11 @@ JWT encoding libraries are available for most languages. Learn more at [jwt.io](
 Currently, the only required JWT claims are the "issued at" and "expiration" time stamps: `iat` and `exp`.
 
 Parameter | Required | Description
---------- | ------- | -----------
-`iat` | YES | The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
-`exp` | YES | The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
-`iss` | no | Something to identify you as the issuer of the token.
+--------- | -------- | -----------
+`iat`     | YES      | The time the JWT was computed in seconds since epoch. The Tuition.io API does not allow JWTs older than 1 year of age or issued in the future. Setting `iat` to the current timestamp should work in most cases.
+`exp`     | YES      | The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.
+`id`      | no       | ID of authenticated user. If omitted, API Key user will be used.
+`iss`     | no       | Something to identify you as the issuer of the token.
 
 ## Request Headers Example
 
