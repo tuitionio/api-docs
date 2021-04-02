@@ -407,6 +407,7 @@ The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0
 <span class="n">claims</span> <span class="o">=</span> <span class="p">{</span>
   <span class="ss">iat: </span><span class="mi">1609883853</span><span class="p">,</span> <span class="c1"># required</span>
   <span class="ss">exp: </span><span class="mi">1609887476</span><span class="p">,</span> <span class="c1"># required</span>
+  <span class="ss">id: </span><span class="s1">'14'</span><span class="p">,</span> <span class="c1"># optional</span>
   <span class="ss">iss: </span><span class="s1">'Example Company, LLC'</span> <span class="c1"># optional</span>
 <span class="p">}</span>
 
@@ -415,7 +416,7 @@ The Tuition.io API conforms to the <a href="https://www.jsonapi.org">JSONAPI 1.0
 
 <div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">#!/usr/bin/env bash</span>
 <span class="nv">jwt_header</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"alg":"HS512"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
-<span class="nv">payload</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g |sed <span class="s1">'s/\//_/g'</span> |  <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
+<span class="nv">payload</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s1">'{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC","id":"14"}'</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g |sed <span class="s1">'s/\//_/g'</span> |  <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
 <span class="nv">secret</span><span class="o">=</span><span class="s1">'purrrrrfectt'</span>
 <span class="nv">hmac_signature</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">"</span> |  openssl sha512 <span class="nt">-hmac</span> <span class="s2">"</span><span class="nv">$secret</span><span class="s2">"</span> <span class="nt">-binary</span> | <span class="nb">base64</span> | <span class="nb">sed </span>s/<span class="se">\+</span>/-/g | <span class="nb">sed</span> <span class="s1">'s/\//_/g'</span> | <span class="nb">sed</span> <span class="nt">-E</span> s/<span class="o">=</span>+<span class="nv">$/</span>/<span class="si">)</span>
 <span class="nv">jwt</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">jwt_header</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">payload</span><span class="k">}</span><span class="s2">.</span><span class="k">${</span><span class="nv">hmac_signature</span><span class="k">}</span><span class="s2">"</span>
@@ -470,6 +471,11 @@ Make sure to replace <code>purrrrrfectt</code> with your API Key secret.</p>
 <td><code>exp</code></td>
 <td>YES</td>
 <td>The time the JWT will expire. The Tuition.io API will reject requests with expired JWTs. For security, we recommend JWTs that expire after a few minutes. But the API allows JWTs up to 1 year old.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>no</td>
+<td>ID of authenticated user. If omitted, API Key user will be used.</td>
 </tr>
 <tr>
 <td><code>iss</code></td>
@@ -643,6 +649,11 @@ curl <span class="s2">"https://localhost:3030/companies"</span> <span class="se"
 <td>Many</td>
 <td>List of contribution plans associated to the company</td>
 </tr>
+<tr>
+<td><code>user</code></td>
+<td>One</td>
+<td>The User record that represents this Company/Organization</td>
+</tr>
 </tbody></table>
 <h2 id='show-company'>Show Company</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Company</span>
 curl <span class="s2">"https://localhost:3030/companies/1337"</span> <span class="se">\</span>
@@ -712,6 +723,11 @@ curl <span class="s2">"https://localhost:3030/companies/1337"</span> <span class
 <td><code>plans</code></td>
 <td>Many</td>
 <td>List of contribution plans associated to the company</td>
+</tr>
+<tr>
+<td><code>user</code></td>
+<td>One</td>
+<td>The User record that represents this Company/Organization</td>
 </tr>
 </tbody></table>
 <h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
