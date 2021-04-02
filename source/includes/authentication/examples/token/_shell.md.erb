@@ -1,7 +1,7 @@
 ```shell
 #!/usr/bin/env bash
 jwt_header=$(echo -n '{"alg":"HS512"}' | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
-payload=$(echo -n '{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC"}' | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
+payload=$(echo -n '{"iat":1609883853,"exp":1609887476,"iss":"Example Company, LLC","id":"14"}' | base64 | sed s/\+/-/g |sed 's/\//_/g' |  sed -E s/=+$//)
 secret='<%= config[:api_secret] %>'
 hmac_signature=$(echo -n "${jwt_header}.${payload}" |  openssl sha512 -hmac "$secret" -binary | base64 | sed s/\+/-/g | sed 's/\//_/g' | sed -E s/=+$//)
 jwt="${jwt_header}.${payload}.${hmac_signature}"
