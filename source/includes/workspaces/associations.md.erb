@@ -1,0 +1,20 @@
+### Associations
+
+Association | One / Many   |  Description
+----------  | ------------ | -------------
+`employees` | Many         | List of employees associated to the workspace
+`users`     | Many         | The User records associated with the workspace
+
+## Request Workspace with Employees
+
+This endpoint attaches a single employee to a specific workspace.
+
+```shell
+curl "<%= config[:base_url] %>/workspaces/<ID>?include=employees,users" \
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>'
+ ```
+
+### HTTP Request
+
+`GET <%= config[:base_url]%>/workspaces/<ID>?include=employees,users`

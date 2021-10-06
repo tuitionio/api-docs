@@ -1,0 +1,55 @@
+## Update a Specific Workspace
+
+```shell
+curl -X "PATCH" "<%= config[:base_url] %>/workspaces/9876" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+     -H 'Content-Type: application/vnd.api+json' \\
+     -d $'{
+  "data": {
+    "id": "9876",
+    "type": "workspaces",
+    "attributes": {
+      "name": "Updated Name",
+      "description": "Updated description for workspace"
+    }
+  }
+}'
+
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "id": "9876",
+    "type": "workspaces",
+    "attributes": {
+      "name": "Updated Name",
+      "description": "Updated description for workspace",
+      "path": [9877,9876]
+    }
+  }
+}
+```
+
+This endpoint updates a specific workspace.
+
+### HTTP Request
+
+`PUT <%= config[:base_url]%>/workspaces/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the workspace to update
+
+### BODY Parameters
+
+Parameter | Description
+--------- | -----------
+name | The name of the workspace
+description | The description of the workspace
+custom-attributes | A place to store arbitrary values associated with a workspace

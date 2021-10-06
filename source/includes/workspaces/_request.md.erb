@@ -1,0 +1,39 @@
+## Get a Specific Workspace
+
+```shell
+curl "<%= config[:base_url] %>/workspaces/<ID>" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "data": {
+    "id": "9878",
+    "type": "workspaces",
+    "attributes": {
+      "name": "Purple Admin Workspace",
+      "description": "This is the purple workspace",
+      "path": [9877,9878],
+      ...
+    }
+  }
+}
+```
+
+This endpoint retrieves a specific workspace.
+
+### HTTP Request
+
+`GET <%= config[:base_url]%>/workspaces/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the workspace to retrieve
+
+<%# partial "includes/workspaces/attributes.md.erb" %>
+<%= partial "includes/workspaces/associations.md.erb" %>
