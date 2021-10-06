@@ -1,0 +1,26 @@
+<h3 id='associations'>Associations</h3>
+<table><thead>
+<tr>
+<th>Association</th>
+<th>One / Many</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>employees</code></td>
+<td>Many</td>
+<td>List of employees associated to the workspace</td>
+</tr>
+<tr>
+<td><code>users</code></td>
+<td>Many</td>
+<td>The User records associated with the workspace</td>
+</tr>
+</tbody></table>
+<h2 id='request-workspace-with-employees'>Request Workspace with Employees</h2>
+<p>This endpoint attaches a single employee to a specific workspace.</p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:3030/workspaces/&lt;ID&gt;?include=employees,users"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
+</code></pre></div><h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://localhost:3030/workspaces/&lt;ID&gt;?include=employees,users</code></p>
