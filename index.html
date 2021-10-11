@@ -405,6 +405,9 @@
                     <a href="#attach-agent-to-workspace" class="toc-h2 toc-link" data-title="Attach Agent to Workspace">Attach Agent to Workspace</a>
                   </li>
                   <li>
+                    <a href="#assign-agent-to-additional-workspace" class="toc-h2 toc-link" data-title="Assign agent to additional Workspace">Assign agent to additional Workspace</a>
+                  </li>
+                  <li>
                     <a href="#deactivate-a-specific-workspace" class="toc-h2 toc-link" data-title="Deactivate a Specific Workspace">Deactivate a Specific Workspace</a>
                   </li>
               </ul>
@@ -1497,67 +1500,63 @@ Remember — additional information is included in the response. See relations a
 </code></pre></div><h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://localhost:3030/workspaces/&lt;ID&gt;?include=employees,users</code></p></p>
 
-<p><h2 id='create-workspace'>Create Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
+<h2 id='create-workspace'>Create Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
 <span class="c">## Create Workspace</span>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: {
-    &quot;type&quot;: &quot;workspaces&quot;,
-    &quot;attributes&quot;: {
-      &quot;custom-attributes&quot;: {
-        &quot;agent-license&quot;: &quot;1234ABC&quot;,
-        &quot;agency-name&quot;: &quot;PAW Workspace&quot;,
-        &quot;agent-name&quot;: &quot;Phillip Fry&quot;
+curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"https://localhost:3030/workspaces"</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: application/vnd.api+json'</span> <span class="se">\\</span>
+     <span class="nt">-d</span> <span class="s1">$'{
+  "data": {
+    "type": "workspaces",
+    "attributes": {
+      "custom-attributes": {
+        "agent-license": "1234ABC",
+        "agency-name": "PAW Workspace",
+        "agent-name": "Phillip Fry"
       },
-      &quot;name&quot;: &quot;A Workspace&quot;,
-      &quot;description&quot;: &quot;A workspace&quot;
+      "name": "A Workspace",
+      "description": "A workspace"
     },
-    &quot;relationships&quot;: {
-      &quot;parent&quot;: {
-        &quot;data&quot;: {
-          &quot;type&quot;: &quot;workspaces&quot;,
-          &quot;id&quot;: &quot;9877&quot;
+    "relationships": {
+      "parent": {
+        "data": {
+          "type": "workspaces",
+          "id": "9877"
         }
       }
     }
   }
-}&#39;</span></p>
+}'</span>
 
-<p></code></pre></div>
+</code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w">
-    </span><span class="p">{</span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;workspaces&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A Workspace&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A workspace&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;custom-attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">&quot;agency-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PAW Workspace&quot;</span><span class="p">,</span><span class="w">
-        </span><span class="nl">&quot;agent-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cory Loken&quot;</span><span class="p">,</span><span class="w">
-        </span><span class="nl">&quot;agent-license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1234ABC&quot;</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspaces"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Workspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A workspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"custom-attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"agency-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAW Workspace"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"agent-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cory Loken"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"agent-license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234ABC"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>This endpoint creates a specific workspace.</p></p>
+<p>This endpoint creates a specific workspace.</p>
 
 <aside class="success">
   Please make note of the parent relationship. This is required as a workspace always requires a parent workspace.
 </aside>
-
 <h3 id='http-request'>HTTP Request</h3>
-
 <p><code>POST https://localhost:3030/workspaces</code></p>
-
 <h3 id='body-parameters'>BODY Parameters</h3>
-
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1578,33 +1577,33 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </tr>
 </tbody></table>
 
-<p><h2 id='update-a-specific-workspace'>Update a Specific Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;PATCH&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/9876&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: {
-    &quot;id&quot;: &quot;9876&quot;,
-    &quot;type&quot;: &quot;workspaces&quot;,
-    &quot;attributes&quot;: {
-      &quot;name&quot;: &quot;Updated Name&quot;,
-      &quot;description&quot;: &quot;Updated description for workspace&quot;
+<h2 id='update-a-specific-workspace'>Update a Specific Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">"PATCH"</span> <span class="s2">"https://localhost:3030/workspaces/9876"</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: application/vnd.api+json'</span> <span class="se">\\</span>
+     <span class="nt">-d</span> <span class="s1">$'{
+  "data": {
+    "id": "9876",
+    "type": "workspaces",
+    "attributes": {
+      "name": "Updated Name",
+      "description": "Updated description for workspace"
     }
   }
-}&#39;</span></p>
+}'</span>
 
-<p></code></pre></div>
+</code></pre></div>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;workspaces&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Name&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated description for workspace&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">9877</span><span class="p">,</span><span class="mi">9876</span><span class="p">]</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspaces"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated Name"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Updated description for workspace"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">9877</span><span class="p">,</span><span class="mi">9876</span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1643,46 +1642,50 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <td>custom-attributes</td>
 <td>A place to store arbitrary values associated with a workspace</td>
 </tr>
-</tbody></table></p>
+</tbody></table>
 
-<p><h2 id='attach-employees-to-workspace'>Attach Employees to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://https://localhost:3030/workspaces/9877/relationships/employees&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: [
+<h2 id='attach-employees-to-workspace'>Attach Employees to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"http://https://localhost:3030/workspaces/9877/relationships/employees"</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: application/vnd.api+json'</span> <span class="se">\\</span>
+     <span class="nt">-d</span> <span class="s1">$'{
+  "data": [
     {
-      &quot;id&quot;: &quot;1&quot;,
-      &quot;type&quot;: &quot;employees&quot;
+      "id": "1",
+      "type": "employees"
     }
   ]
-}&#39;</span>
+}'</span>
 </code></pre></div>
-<p>This endpoint attaches a single employee to a specific workspace.</p></p>
+<p>This endpoint attaches a single employee to a specific workspace.</p>
 
 <aside class="success">
   Employees may only belong to a single workspace
 </aside>
-
 <h3 id='http-request'>HTTP Request</h3>
-
 <p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/relationships/employees</code></p>
 
-<p><h2 id='attach-agent-to-workspace'>Attach Agent to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/create-agent&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;user-name&quot;: &quot;nas@bav.gov&quot;,
-  &quot;first-name&quot;: &quot;Celia&quot;,
-  &quot;last-name&quot;: &quot;Holland&quot;,
-  &quot;login-provider&quot;: &quot;ACME&quot;
-}&#39;</span>
+<h2 id='attach-agent-to-workspace'>Attach Agent to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Create and assign agent to Workspace</span>
+curl <span class="nt">-X</span> <span class="s2">"POST"</span> <span class="s2">"https://localhost:3030/workspaces/&lt;ID&gt;/create-agent"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span> <span class="se">\\</span>
+     <span class="nt">-H</span> <span class="s1">'Content-Type: application/vnd.api+json'</span> <span class="se">\\</span>
+     <span class="nt">-d</span> <span class="s1">$'{
+  "data": {
+    "type": "users",
+    "attributes": {
+      "user-name": "hucicogo@gerla.org",
+      "first-name": "Hunter",
+      "last-name": "Watson",
+      "login-provider": "EMAIL"
+    }
+  }
+}'</span>
 </code></pre></div>
 <p>This endpoint creates an agent in a specific workspace.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://localhost:3030/workspaces/create-agent</code></p>
+<p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/create-agent</code></p>
 <h3 id='body-parameters'>BODY Parameters</h3>
 <table><thead>
 <tr>
@@ -1706,7 +1709,29 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <td>login-provider</td>
 <td>The strategy to be used for login. Usually a SAML provider</td>
 </tr>
-</tbody></table></p>
+</tbody></table>
+<h2 id='assign-agent-to-additional-workspace'>Assign agent to additional Workspace</h2>
+
+<p>curl -X &quot;PUT&quot; &quot;https://localhost:3030/workspaces/<ID>/assign-agent&quot; \
+     -H &#39;x-api-key: meowmeowmeow&#39; \
+     -H &#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39; \
+     -H &#39;Content-Type: application/vnd.api+json&#39; \
+     -d $&#39;{
+  &quot;data&quot;: {
+  &quot;type&quot;: &quot;workspaces&quot;,
+  &quot;id&quot;: &quot;<ID>&quot;,
+  &quot;relationships&quot;: {
+    &quot;user&quot;: {
+       &quot;type&quot;: &quot;users&quot;,
+       &quot;id&quot;: &quot;<AGENT_ID>&quot;
+     }
+  }
+  }
+}&#39;</p>
+
+<p>This endpoint assigns an agent in an additional workspace.</p>
+
+<p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/assign-agent</code></p>
 
 <p><h2 id='deactivate-a-specific-workspace'>Deactivate a Specific Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
