@@ -1,15 +1,21 @@
 ## Attach Agent to Workspace
 
 ```shell
-curl -X "POST" "<%= config[:base_url] %>/workspaces/create-agent" \\
+## Create and assign agent to Workspace
+curl -X "POST" "<%= config[:base_url] %>/workspaces/<ID>/create-agent" \
      -H 'x-api-key: <%= config[:api_key] %>' \\
      -H 'tio-auth-token: <%= config[:api_token] %>' \\
      -H 'Content-Type: application/vnd.api+json' \\
      -d $'{
-  "user-name": "nas@bav.gov",
-  "first-name": "Celia",
-  "last-name": "Holland",
-  "login-provider": "ACME"
+  "data": {
+    "type": "users",
+    "attributes": {
+      "user-name": "hucicogo@gerla.org",
+      "first-name": "Hunter",
+      "last-name": "Watson",
+      "login-provider": "EMAIL"
+    }
+  }
 }'
 ```
 
@@ -17,7 +23,7 @@ This endpoint creates an agent in a specific workspace.
 
 ### HTTP Request
 
-`POST <%= config[:base_url]%>/workspaces/create-agent`
+`POST <%= config[:base_url]%>/workspaces/<ID>/create-agent`
 
 ### BODY Parameters
 
@@ -27,3 +33,26 @@ user-name | The login name of the agent. This should be an email address
 first-name | The first name of the agent
 last-name | The last name of the agent
 login-provider | The strategy to be used for login. Usually a SAML provider
+
+
+## Assign agent to additional Workspace
+curl -X "PUT" "<%= config[:base_url] %>/workspaces/<ID>/assign-agent" \
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+     -H 'Content-Type: application/vnd.api+json' \\
+     -d $'{
+  "data": {
+  "type": "workspaces",
+  "id": "<ID>",
+  "relationships": {
+    "user": {
+       "type": "users",
+       "id": "<AGENT_ID>"
+     }
+  }
+  }
+}'
+
+This endpoint assigns an agent in an additional workspace.
+
+`POST <%= config[:base_url]%>/workspaces/<ID>/assign-agent`
