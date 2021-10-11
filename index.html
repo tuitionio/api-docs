@@ -1673,7 +1673,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/relationships/employees</code></p>
 
 <p><h2 id='attach-agent-to-workspace'>Attach Agent to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Create and assign agent to Workspace</span>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/create-agent&quot;</span> <span class="se">&lt;/span&gt;
+curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/create-agent&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
@@ -1716,7 +1716,7 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <td>The strategy to be used for login. Usually a SAML provider</td>
 </tr>
 </tbody></table>
-<h2 id='assign-agent-to-additional-workspace'>Assign Agent to Additional Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;PUT&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/assign-agent&quot;</span> <span class="se">&lt;/span&gt;
+<h2 id='assign-agent-to-additional-workspace'>Assign Agent to Additional Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;PUT&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/assign-agent&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
