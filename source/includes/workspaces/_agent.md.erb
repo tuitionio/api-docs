@@ -35,7 +35,9 @@ last-name | The last name of the agent
 login-provider | The strategy to be used for login. Usually a SAML provider
 
 
-## Assign agent to additional Workspace
+## Assign Agent to Additional Workspace
+
+```shell
 curl -X "PUT" "<%= config[:base_url] %>/workspaces/<ID>/assign-agent" \
      -H 'x-api-key: <%= config[:api_key] %>' \\
      -H 'tio-auth-token: <%= config[:api_token] %>' \\
@@ -52,6 +54,7 @@ curl -X "PUT" "<%= config[:base_url] %>/workspaces/<ID>/assign-agent" \
   }
   }
 }'
+```
 
 This endpoint assigns an agent in an additional workspace.
 
