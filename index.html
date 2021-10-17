@@ -402,13 +402,36 @@
                     <a href="#attach-employees-to-workspace" class="toc-h2 toc-link" data-title="Attach Employees to Workspace">Attach Employees to Workspace</a>
                   </li>
                   <li>
-                    <a href="#attach-agent-to-workspace" class="toc-h2 toc-link" data-title="Attach Agent to Workspace">Attach Agent to Workspace</a>
-                  </li>
-                  <li>
-                    <a href="#assign-agent-to-additional-workspace" class="toc-h2 toc-link" data-title="Assign Agent to Additional Workspace">Assign Agent to Additional Workspace</a>
+                    <a href="#remove-employees-from-workspace" class="toc-h2 toc-link" data-title="Remove Employees from Workspace">Remove Employees from Workspace</a>
                   </li>
                   <li>
                     <a href="#deactivate-a-specific-workspace" class="toc-h2 toc-link" data-title="Deactivate a Specific Workspace">Deactivate a Specific Workspace</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#agents" class="toc-h1 toc-link" data-title="Agents">Agents</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-agents" class="toc-h2 toc-link" data-title="Get Agents">Get Agents</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-agent" class="toc-h2 toc-link" data-title="Get a Specific Agent">Get a Specific Agent</a>
+                  </li>
+                  <li>
+                    <a href="#list-agents" class="toc-h2 toc-link" data-title="List Agents">List Agents</a>
+                  </li>
+                  <li>
+                    <a href="#create-agent" class="toc-h2 toc-link" data-title="Create Agent">Create Agent</a>
+                  </li>
+                  <li>
+                    <a href="#update-a-specific-agent" class="toc-h2 toc-link" data-title="Update a Specific Agent">Update a Specific Agent</a>
+                  </li>
+                  <li>
+                    <a href="#add-agent-workspace-s" class="toc-h2 toc-link" data-title="Add Agent Workspace(s)">Add Agent Workspace(s)</a>
+                  </li>
+                  <li>
+                    <a href="#remove-agent-workspace-s" class="toc-h2 toc-link" data-title="Remove Agent Workspace(s)">Remove Agent Workspace(s)</a>
                   </li>
               </ul>
           </li>
@@ -765,8 +788,7 @@ curl <span class="s2">"https://localhost:3030/companies/1337"</span> <span class
 <td>The User record that represents this Company/Organization</td>
 </tr>
 </tbody></table>
-<h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Request Employees</span>
-curl <span class="s2">"https://localhost:3030/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
+<h1 id='employees'>Employees</h1><h2 id='get-employees'>Get Employees</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:3030/employees?page%5Blimit%5D=2"</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
 </code></pre></div>
@@ -1052,8 +1074,7 @@ Remember — additional information is included in the response. See relations a
 </tr>
 </tbody></table>
 
-<p><h2 id='create-employee'>Create Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/employees&quot;</span> <span class="se">\</span>
+<p><h2 id='create-employee'>Create Employee</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
@@ -1412,7 +1433,7 @@ curl <span class="s2">"https://localhost:3030/workspaces?page%5Blimit%5D=2"</spa
 <p><code>GET https://localhost:3030/workspaces?page%5Blimit%5D=2</code></p>
 
 <aside class="success">
-Remember — additional information is included in the response. See relations and parameters for more info.
+Remember — additional information is included in the response. See relations and parameters for more info. Using `include=agents` is a useful additional option.
 </aside>
 
 <h3 id='query-parameters'>Query Parameters</h3>
@@ -1648,18 +1669,15 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 </tr>
 </tbody></table></p>
 
-<p><h2 id='attach-employees-to-workspace'>Attach Employees to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://https://localhost:3030/workspaces/9877/relationships/employees&quot;</span> <span class="se">\</span>
+<p><h2 id='attach-employees-to-workspace'>Attach Employees to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://https://localhost:3030/workspaces/&lt;WORKSPACE_ID&gt;/relationships/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: [
-    {
-      &quot;id&quot;: &quot;1&quot;,
-      &quot;type&quot;: &quot;employees&quot;
-    }
-  ]
+        &quot;data&quot;: [{
+          &quot;id&quot;: &quot;1&quot;,
+          &quot;type&quot;: &quot;employees&quot;
+        }]
 }&#39;</span>
 </code></pre></div>
 <p>This endpoint attaches a single employee to a specific workspace.</p></p>
@@ -1672,70 +1690,22 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 
 <p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/relationships/employees</code></p>
 
-<p><h2 id='attach-agent-to-workspace'>Attach Agent to Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c">## Create and assign agent to Workspace</span>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/create-agent&quot;</span> <span class="se">\</span>
+<p><h2 id='remove-employees-from-workspace'>Remove Employees from Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;http://https://localhost:3030/workspaces/&lt;WORKSPACE_ID&gt;/relationships/employees&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
      <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: {
-    &quot;type&quot;: &quot;users&quot;,
-    &quot;attributes&quot;: {
-      &quot;user-name&quot;: &quot;hucicogo@gerla.org&quot;,
-      &quot;first-name&quot;: &quot;Hunter&quot;,
-      &quot;last-name&quot;: &quot;Watson&quot;,
-      &quot;login-provider&quot;: &quot;EMAIL&quot;
-    }
-  }
-}&#39;</span>
+        &quot;data&quot;: [{
+          &quot;id&quot;: &quot;1&quot;,
+          &quot;type&quot;: &quot;employees&quot;
+        }]
+      }&#39;</span>
 </code></pre></div>
-<p>This endpoint creates an agent in a specific workspace.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/create-agent</code></p>
-<h3 id='body-parameters'>BODY Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>user-name</td>
-<td>The login name of the agent. This should be an email address</td>
-</tr>
-<tr>
-<td>first-name</td>
-<td>The first name of the agent</td>
-</tr>
-<tr>
-<td>last-name</td>
-<td>The last name of the agent</td>
-</tr>
-<tr>
-<td>login-provider</td>
-<td>The strategy to be used for login. Usually a SAML provider</td>
-</tr>
-</tbody></table>
-<h2 id='assign-agent-to-additional-workspace'>Assign Agent to Additional Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;PUT&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&lt;ID&gt;/assign-agent&quot;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
-     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
-     <span class="nt">-d</span> <span class="s1">$&#39;{
-  &quot;data&quot;: {
-  &quot;type&quot;: &quot;workspaces&quot;,
-  &quot;id&quot;: &quot;&lt;ID&gt;&quot;,
-  &quot;relationships&quot;: {
-    &quot;user&quot;: {
-       &quot;type&quot;: &quot;users&quot;,
-       &quot;id&quot;: &quot;&lt;AGENT_ID&gt;&quot;
-     }
-  }
-  }
-}&#39;</span>
-</code></pre></div>
-<p>This endpoint assigns an agent in an additional workspace.</p></p>
+<blockquote>
+<p>Returns &quot;204 No Content&quot; on success</p>
+</blockquote></p>
 
-<p><code>POST https://localhost:3030/workspaces/&lt;ID&gt;/assign-agent</code></p>
+<p>This endpoint removes a single employee to a specific workspace.</p>
 
 <p><h2 id='deactivate-a-specific-workspace'>Deactivate a Specific Workspace</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;DELETE&quot;</span> <span class="s2">&quot;https://localhost:3030/workspaces/&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
@@ -1762,6 +1732,352 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>ID</td>
 <td>The ID of the workspace to deactivate</td>
+</tr>
+</tbody></table>
+<h1 id='agents'>Agents</h1><h2 id='get-agents'>Get Agents</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:3030/agents?page%5Blimit%5D=2"</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'x-api-key: meowmeowmeow'</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">'tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw'</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w">
+    </span><span class="p">[{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"4064"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"agents"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"first-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Anna"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"last-name"</span><span class="p">:</span><span class="s2">"Riley"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"anna@test.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"4065"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"agents"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"first-name"</span><span class="p">:</span><span class="s2">"Loren"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"last-name"</span><span class="p">:</span><span class="s2">"Jefferson"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"loren@test.com"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="nl">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">140</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><code>GET https://localhost:3030/agents?page%5Blimit%5D=2</code></p>
+
+<aside class="success">
+Remember — additional information is included in the response. See relations and parameters for more info.
+</aside>
+
+<h3 id='query-parameters'>Query Parameters</h3>
+
+<p><code>GET https://localhost:3030/agents?filter[is-active]=false</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>filter[is-active]</code></td>
+<td>true</td>
+<td>Filter agents by <code>is-active</code></td>
+</tr>
+</tbody></table>
+
+<p><h2 id='get-a-specific-agent'>Get a Specific Agent</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://localhost:3030/agents/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4064&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;agents&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Calvin&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Broadus&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;snoop.dogg@example.com&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a specific agent.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://localhost:3030/agents/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the agent to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='list-agents'>List Agents</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">&quot;https://localhost:3030/agents&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;738306350509981713&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;agents&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;guohawo@crunchy.bananas&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Antonio&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="s2">&quot;Hunter&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}],</span><span class="w">
+  </span><span class="nl">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves a list agent. Use the <code>?include=workspaces</code> to retrieve related workspaces.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://localhost:3030/agents</code></p></p>
+
+<p><h2 id='create-agent'>Create Agent</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/agents&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+      &quot;data&quot;:
+      {
+          &quot;type&quot;: &quot;agents&quot;,
+          &quot;attributes&quot;:
+          {
+              &quot;first-name&quot;: &quot;Cornelia&quot;,
+              &quot;last-name&quot;: &quot;Gray&quot;,
+              &quot;email&quot;: &quot;in@crunchy.bananas&quot;
+          },
+          &quot;relationships&quot;:
+          {
+              &quot;workspace&quot;:
+              {
+                  &quot;data&quot;:
+                  {
+                      &quot;type&quot;: &quot;workspaces&quot;,
+                      &quot;id&quot;: &quot;&lt;WORKSPACE_ID&gt;&quot;
+                  }
+              }
+          }
+      }
+  }&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;3&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;employees&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cornelia&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gray&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in@crunchy.bananas&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates a specific agent.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://localhost:3030/agents</code></p>
+<h3 id='body-parameters'>BODY Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>WORKSPACE_ID</td>
+<td>The WORKSPACE_ID that the agent is assigned</td>
+</tr>
+<tr>
+<td>first-name</td>
+<td>The first name of the agent</td>
+</tr>
+<tr>
+<td>last-name</td>
+<td>The last name of the agent</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email that will be used for authentication</td>
+</tr>
+</tbody></table></p>
+
+<p><h2 id='update-a-specific-agent'>Update a Specific Agent</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> PUT <span class="s2">&quot;https://localhost:3030/agents/&lt;ID&gt;&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+        &quot;data&quot;: {
+          &quot;id&quot;: &quot;4064&quot;,
+          &quot;type&quot;: &quot;agents&quot;,
+          &quot;attributes&quot;: {
+            &quot;first-name&quot;: &quot;Anna Changed&quot;
+          }
+        }
+      }&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4064&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;agents&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Anna Changed&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Riley&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint updates a specific agent.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>PUT https://localhost:3030/employees/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the agent to update</td>
+</tr>
+</tbody></table>
+<h3 id='body-parameters'>BODY Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first-name</td>
+<td>The first name of the agent</td>
+</tr>
+<tr>
+<td>last-name</td>
+<td>The last name of the agent</td>
+</tr>
+</tbody></table></p>
+
+<p><h2 id='add-agent-workspace-s'>Add Agent Workspace(s)</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/agents/&lt;ID&gt;/relationships/workspaces&quot;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
+     <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
+     <span class="nt">-d</span> <span class="s1">$&#39;{
+      &quot;data&quot;: [
+        { &quot;type&quot;: &quot;workspaces&quot;, &quot;id&quot;: &quot;&lt;WORKSPACE_ID&gt;&quot; },
+        { &quot;type&quot;: &quot;workspaces&quot;, &quot;id&quot;: &quot;&lt;WORKSPACE_ID&gt;&quot; },
+        { &quot;type&quot;: &quot;workspaces&quot;, &quot;id&quot;: &quot;&lt;WORKSPACE_ID&gt;&quot; }
+      ]
+    }&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>Returns &quot;204 No Content&quot; on success</p>
+</blockquote></p>
+
+<p>This endpoint attaches an agent plan to a specific workspace.</p>
+
+<h3 id='http-request'>HTTP Request</h3>
+
+<p><code>POST https://localhost:3030/agents/&lt;ID&gt;/relationships/workspaces</code></p>
+
+<h3 id='url-parameters'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the agent to attach to workspace</td>
+</tr>
+</tbody></table>
+
+<h3 id='body-parameters'>BODY Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>WORKSPACE_ID</td>
+<td>The WORKSPACE_ID to attach agent</td>
+</tr>
+</tbody></table>
+
+<p><h2 id='remove-agent-workspace-s'>Remove Agent Workspace(s)</h2><div class="highlight"><pre class="highlight plaintext"><code>curl -X &quot;DELETE&quot; &quot;https://localhost:3030/agents/&lt;ID&gt;/relationships/workspaces&quot; \
+     -H &#39;x-api-key: meowmeowmeow&#39; \
+     -H &#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39; \
+     -H &#39;Content-Type: application/vnd.api+json&#39; \
+     -d $&#39;{
+  &quot;data&quot;: [
+    { &quot;type&quot;: &quot;workspaces&quot;, &quot;id&quot;: &quot;&lt;WORKSPACE_ID&gt;&quot; }
+  ]
+}&#39;
+</code></pre></div>
+<blockquote>
+<p>Returns &quot;204 No Content&quot; on success</p>
+</blockquote></p>
+
+<p>This endpoint removes an agent plan to a specific workspace(s).</p>
+
+<h3 id='http-request-2'>HTTP Request</h3>
+
+<p><code>POST https://localhost:3030/agents/&lt;ID&gt;/relationships/workspaces</code></p>
+
+<h3 id='url-parameters-2'>URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the agent to attach to workspace</td>
+</tr>
+</tbody></table>
+
+<h3 id='body-parameters-2'>BODY Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>WORKSPACE_ID</td>
+<td>The WORKSPACE_ID to attach agent</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
