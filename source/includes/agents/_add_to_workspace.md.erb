@@ -1,0 +1,69 @@
+## Add Agent Workspace(s)
+
+```shell
+curl -X "POST" "<%= config[:base_url] %>/agents/<ID>/relationships/workspaces" \\
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+     -H 'Content-Type: application/vnd.api+json' \\
+     -d $'{
+      "data": [
+        { "type": "workspaces", "id": "<WORKSPACE_ID>" },
+        { "type": "workspaces", "id": "<WORKSPACE_ID>" },
+        { "type": "workspaces", "id": "<WORKSPACE_ID>" }
+      ]
+    }'
+```
+
+> Returns "204 No Content" on success
+
+This endpoint attaches an agent plan to a specific workspace.
+
+### HTTP Request
+
+`POST <%= config[:base_url]%>/agents/<ID>/relationships/workspaces`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the agent to attach to workspace
+
+### BODY Parameters
+
+Parameter | Description
+--------- | -----------
+WORKSPACE_ID | The WORKSPACE_ID to attach agent
+
+
+## Remove Agent Workspace(s)
+```
+curl -X "DELETE" "<%= config[:base_url] %>/agents/<ID>/relationships/workspaces" \
+     -H 'x-api-key: <%= config[:api_key] %>' \\
+     -H 'tio-auth-token: <%= config[:api_token] %>' \\
+     -H 'Content-Type: application/vnd.api+json' \\
+     -d $'{
+  "data": [
+    { "type": "workspaces", "id": "<WORKSPACE_ID>" }
+  ]
+}'
+```
+
+> Returns "204 No Content" on success
+
+This endpoint removes an agent plan to a specific workspace(s).
+
+### HTTP Request
+
+`POST <%= config[:base_url]%>/agents/<ID>/relationships/workspaces`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | The ID of the agent to attach to workspace
+
+### BODY Parameters
+
+Parameter | Description
+--------- | -----------
+WORKSPACE_ID | The WORKSPACE_ID to attach agent

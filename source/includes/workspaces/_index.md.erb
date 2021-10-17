@@ -44,7 +44,7 @@ curl "<%= config[:base_url] %>/workspaces?page%5Blimit%5D=2" \
 `GET <%= config[:base_url] %>/workspaces?page%5Blimit%5D=2`
 
 <aside class="success">
-Remember — additional information is included in the response. See relations and parameters for more info.
+Remember — additional information is included in the response. See relations and parameters for more info. Using `include=agents` is a useful additional option.
 </aside>
 
 <%= partial "includes/workspaces/query_params.md" %>
@@ -52,7 +52,6 @@ Remember — additional information is included in the response. See relations a
 <%= partial "includes/workspaces/create.md" %>
 <%= partial "includes/workspaces/update.md" %>
 <%= partial "includes/workspaces/employees.md" %>
-<%= partial "includes/workspaces/agent.md" %>
 <%= partial "includes/workspaces/deactivate.md" %>
 
 
