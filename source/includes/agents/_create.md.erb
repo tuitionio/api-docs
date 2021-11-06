@@ -1,6 +1,6 @@
 ## Create Agent
-```shell
 
+```shell
 curl -X "POST" "<%= config[:base_url] %>/agents" \\
      -H 'x-api-key: <%= config[:api_key] %>' \\
      -H 'tio-auth-token: <%= config[:api_token] %>' \\
@@ -13,7 +13,10 @@ curl -X "POST" "<%= config[:base_url] %>/agents" \\
           {
               "first-name": "Cornelia",
               "last-name": "Gray",
-              "email": "in@crunchy.bananas"
+              "email": "in@crunchy.bananas",
+              "custom-attributes": {
+                "agent-license": "1234ABC"
+              }
           },
           "relationships":
           {
@@ -40,7 +43,10 @@ curl -X "POST" "<%= config[:base_url] %>/agents" \\
     "attributes": {
       "first-name": "Cornelia",
       "last-name": "Gray",
-      "email": "in@crunchy.bananas"
+      "email": "in@crunchy.bananas",
+      "custom-attributes": {
+        "agent-license": "1234ABC"
+      }
     }
   }
 }
@@ -60,4 +66,6 @@ WORKSPACE_ID | The WORKSPACE_ID that the agent is assigned
 first-name | The first name of the agent
 last-name | The last name of the agent
 email | The email that will be used for authentication
+custom-attributes | A place to store arbitrary values associated with an agent
+
  
