@@ -1532,7 +1532,6 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
     &quot;type&quot;: &quot;workspaces&quot;,
     &quot;attributes&quot;: {
       &quot;custom-attributes&quot;: {
-        &quot;agent-license&quot;: &quot;1234ABC&quot;,
         &quot;agency-name&quot;: &quot;PAW Workspace&quot;,
         &quot;agent-name&quot;: &quot;Phillip Fry&quot;
       },
@@ -1852,8 +1851,7 @@ Remember — additional information is included in the response. See relations a
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://localhost:3030/agents</code></p></p>
 
-<p><h2 id='create-agent'>Create Agent</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/agents&quot;</span> <span class="se">\</span>
+<p><h2 id='create-agent'>Create Agent</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;https://localhost:3030/agents&quot;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;x-api-key: meowmeowmeow&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;tio-auth-token: eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2MDk4ODM4NTMsImV4cCI6MTYwOTg4NzQ3NiwiaXNzIjoiRXhhbXBsZSBDb21wYW55LCBMTEMifQ.BcfVGaT_0up7wTgOhXDl49RTCQeydDnPt_r8XUJjADLxGXDoLCjuxwb5_fBb1EKQZPSz6TAwgYiOcfdXFLxglw&#39;</span> <span class="se">\</span>
      <span class="nt">-H</span> <span class="s1">&#39;Content-Type: application/vnd.api+json&#39;</span> <span class="se">\</span>
@@ -1865,7 +1863,10 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
           {
               &quot;first-name&quot;: &quot;Cornelia&quot;,
               &quot;last-name&quot;: &quot;Gray&quot;,
-              &quot;email&quot;: &quot;in@crunchy.bananas&quot;
+              &quot;email&quot;: &quot;in@crunchy.bananas&quot;,
+              &quot;custom-attributes&quot;: {
+                &quot;agent-license&quot;: &quot;1234ABC&quot;
+              }
           },
           &quot;relationships&quot;:
           {
@@ -1891,7 +1892,10 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
     </span><span class="nl">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">&quot;first-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cornelia&quot;</span><span class="p">,</span><span class="w">
       </span><span class="nl">&quot;last-name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Gray&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in@crunchy.bananas&quot;</span><span class="w">
+      </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;in@crunchy.bananas&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;custom-attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;agent-license&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1234ABC&quot;</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1921,6 +1925,10 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>email</td>
 <td>The email that will be used for authentication</td>
+</tr>
+<tr>
+<td>custom-attributes</td>
+<td>A place to store arbitrary values associated with an agent</td>
 </tr>
 </tbody></table></p>
 
@@ -1980,6 +1988,14 @@ curl <span class="nt">-X</span> <span class="s2">&quot;POST&quot;</span> <span c
 <tr>
 <td>last-name</td>
 <td>The last name of the agent</td>
+</tr>
+<tr>
+<td>email</td>
+<td>The email that will be used for authentication</td>
+</tr>
+<tr>
+<td>custom-attributes</td>
+<td>A place to store arbitrary values associated with an agent</td>
 </tr>
 </tbody></table></p>
 
