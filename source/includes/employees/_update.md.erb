@@ -25,7 +25,8 @@ curl -X PUT "<%= config[:base_url] %>/employees/<ID>" \\
     "attributes": {
       "first-name": "Anna Changed",
       "last-name": "Riley",
-      "email": "anna@test.com"
+      "email": "anna@test.com",
+      "phone-number": "999-555-1111"
     }
   }
 }
@@ -50,5 +51,6 @@ Parameter | Description
 first-name | The first name of the employee
 last-name | The last name of the employee
 email | The email address where the plan invite is sent
+phone-number | The phone number of the employee
 
 
