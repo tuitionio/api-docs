@@ -17,7 +17,7 @@ jobs:
       with:
         ruby-version: ${{ env.ruby-version }}
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v4
       with:
         path: vendor/bundle
         key: gems-${{ runner.os }}-${{ matrix.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
@@ -33,13 +33,13 @@ jobs:
 
     - run: bundle exec middleman build
 
-    - name: Push to Docker Hub
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_ACCESS_KEY }}
-        repository: slatedocs/slate
-        tag_with_ref: true
+    # - name: Push to Docker Hub
+    #   uses: docker/build-push-action@v1
+    #   with:
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_ACCESS_KEY }}
+    #     repository: slatedocs/slate
+    #     tag_with_ref: true
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3.7.0-8
