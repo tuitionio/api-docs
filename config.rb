@@ -20,6 +20,9 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 
+# Ensure SassC can find local stylesheet partials under Ruby 4
+set :sass, load_paths: [File.join(root, 'source', 'stylesheets')]
+
 # Activate the syntax highlighter
 activate :syntax
 ready do
@@ -62,8 +65,13 @@ configure :build do
   activate :asset_hash, :exts => app.config[:asset_extensions] - %w[.woff .woff2]
   # If you're having trouble with Middleman hanging, commenting
   # out the following two lines has been known to help
-  activate :minify_css
-  activate :minify_javascript
+  # Temporarily disable CSS minification while fixing SassC import paths
+  # activate :minify_css
+  # Enable ES6 harmony mode for Uglifier to support `const`/modern JS
+  require 'uglifier'
+  set :js_compressor, Uglifier.new(harmony: true)
+  # Temporarily disable JS minification to avoid Uglifier/ES6 issues during migration
+  # activate :minify_javascript
   # activate :gzip
 end
 
